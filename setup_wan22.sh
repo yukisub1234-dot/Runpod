@@ -14,23 +14,23 @@ PLUGIN_DIR="${CUSTOM_NODES_DIR}/ComfyUI-WanVideoWrapper"
 COMFYUI_LOG="/tmp/comfyui_setup.log"
 
 # ==============================================================================
-# 【仮想環境】
+# 【Python環境の設定】★重要修正：独自の.venvを排除し、コンテナ純正の最適化環境を使用
 # ==============================================================================
-VENV_DIR="${COMFYUI_DIR}/.venv-cu128"
-if [ -d "$VENV_DIR" ]; then
-    export PATH="${VENV_DIR}/bin:$PATH"
-    PYTHON_EXEC="${VENV_DIR}/bin/python"
-    PIP_CMD="${VENV_DIR}/bin/pip"
-else
-    echo "❌ venv が見つかりません: ${VENV_DIR}"
-    exit 1
+# テンプレート側に最初から最高水準のCUDA12.8対応環境が入っているため、それをそのまま使用します。
+PYTHON_EXEC="python3"
+PIP_CMD="pip"
+
+# もし過去の汚染された古い独自仮想環境が存在する場合は、衝突を防ぐため自動で物理削除
+if [ -d "${COMFYUI_DIR}/.venv-cu128" ]; then
+    echo "🧹 過去の不要な仮想環境(.venv-cu128)を自動クリーンアップ中..."
+    rm -rf "${COMFYUI_DIR}/.venv-cu128"
 fi
 
 export HF_HUB_ENABLE_HF_TRANSFER=1
 export HF_XET_HIGH_PERFORMANCE=1
 
 echo "=================================================="
-echo "🚀 Wan 2.2 セットアップスクリプト（最適化版）"
+echo "🚀 Wan 2.2 セットアップスクリプト（コンテナ純正・完全最適化版）"
 echo "=================================================="
 
 # ==============================================================================
@@ -51,12 +51,10 @@ skip_migration = true
 MANAGER_CONF
 
 # ==============================================================================
-# 【Step 2】起動引数の設定 ★修正箇所：OOM対策とFP8の全面適用
+# 【Step 2】起動引数の設定 ★重要修正：124GiB RAMを活かした完全VRAM防御・プレビュー無効化
 # ------------------------------------------------------------------------------
-# 変更前: --fp8_e4m3fn-text-enc (テキストエンコーダーのみFP8化、14Bモデル本体がFP16でOOM)
-# 変更後: 
-#   --fp8_e4m3fn : モデル全体（U-Net/DiT含む）をFP8でロードしVRAMを劇的に節約
-#   --smart-memory-sharing : VRAMとシステムRAM間のテンソル移動を最適化
+# 変更前: 曖昧なFP8引数、またはlowvramの不足によるサンプリング時の即死
+# 変更後: --lowvramで124GiBのRAMを退避所に活用、--preview-method noneで計算負荷の極小化
 # ==============================================================================
 echo ""
 echo "⚙️  [Step 2/5] 起動引数を設定中（124GiB RAM最適化・VRAM防御モード）..."
@@ -64,30 +62,25 @@ cat > "$COMFYUI_ARGS_FILE" << 'ARGS'
 --fp8_e4m3fn-unet
 --fp8_e4m3fn-text-enc
 --lowvram
---preview-method auto
+--use-pytorch-cross-attention
+--preview-method none
 ARGS
 echo "  -> ✅ 設定完了: ${COMFYUI_ARGS_FILE}"
 
 # ==============================================================================
-# 【Step 3】パッケージのインストール ★修正箇所：エラーの可視化
+# 【Step 3】パッケージのインストール ★重要修正：純正環境へのクリーンな追加
 # ==============================================================================
 echo ""
 echo "🔌 [Step 3/5] パッケージのインストール中..."
 
-if [ -f "${VENV_DIR}/bin/uv" ]; then
-    PIP_CMD="${VENV_DIR}/bin/uv pip"
-elif command -v uv &>/dev/null; then
-    PIP_CMD="uv pip"
-fi
-
-# エラーログの握り潰しをやめ、バックグラウンドでの競合を防ぐため一連の流れで制御
+# コンテナに事前インストールされている強力なシステムベースに、不足パッケージだけをクリーンにマージ
 echo "  -> 依存ライブラリをインストール中 (詳細ログは /tmp/pip_install.log)..."
 if [ ! -d "$PLUGIN_DIR" ]; then
     mkdir -p "$CUSTOM_NODES_DIR"
     git clone --depth=1 https://github.com/Kijai/ComfyUI-WanVideoWrapper.git "$PLUGIN_DIR"
-    $PIP_CMD install -U "huggingface_hub[hf_transfer]" accelerate -r "${PLUGIN_DIR}/requirements.txt" > /tmp/pip_install.log 2>&1
+    $PIP_CMD install --no-cache-dir "huggingface_hub[hf_transfer]" accelerate -r "${PLUGIN_DIR}/requirements.txt" > /tmp/pip_install.log 2>&1
 else
-    $PIP_CMD install -U "huggingface_hub[hf_transfer]" accelerate > /tmp/pip_install.log 2>&1
+    $PIP_CMD install --no-cache-dir "huggingface_hub[hf_transfer]" accelerate > /tmp/pip_install.log 2>&1
 fi
 echo "  -> ✅ パッケージのインストール完了"
 
@@ -98,7 +91,7 @@ echo ""
 echo "🔄 [Step 4/5] ComfyUI を再起動中..."
 COMFYUI_PIDS=$(pgrep -f "python.*main\.py" 2>/dev/null || true)
 if [ -n "$COMFYUI_PIDS" ]; then
-    echo "$COMFYUI_PIDS" | xargs kill 2>/dev/null || true
+    echo "$COMFYUI_PIDS" | xargs kill -9 2>/dev/null || true
     sleep 2
 fi
 
@@ -147,7 +140,6 @@ wait_and_check() {
     PIDS=(); return $status
 }
 
-# (各モデルのダウンロード処理は元のロジックを維持するため省略せず実行されます)
 download_and_rename "Comfy-Org/Wan_2.1_ComfyUI_repackaged" "split_files/vae/wan_2.1_vae.safetensors" "vae" "vae.safetensors"
 download_and_rename "Comfy-Org/Wan_2.1_ComfyUI_repackaged" "split_files/text_encoders/umt5_xxl_fp16.safetensors" "text_encoders" "text_encoder.safetensors"
 download_and_rename "Comfy-Org/Wan_2.2_ComfyUI_Repackaged" "split_files/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors" "loras" "lora_low.safetensors"
@@ -159,7 +151,7 @@ if ! wait_and_check; then exit 1; fi
 find "$BASE_DIR" -mindepth 1 -type d -empty -delete
 
 # ==============================================================================
-# 【完了】ComfyUI の起動確認 ★修正箇所：起動直後のプロセス生存チェック
+# 【完了】ComfyUI の起動確認（維持）
 # ==============================================================================
 echo ""
 echo "⏳ ComfyUI の起動確認中（最大60秒）..."
@@ -179,5 +171,5 @@ for i in $(seq 1 60); do
 done
 
 echo "=================================================="
-if $LAUNCHED; then echo "🎉 完了！最適化オプションで起動しました。"; else echo "⚠️ 起動タイムアウト"; fi
+if $LAUNCHED; then echo "🎉 完了！テンプレート純正の最適化環境で起動しました。"; else echo "⚠️ 起動タイムアウト"; fi
 echo "=================================================="
