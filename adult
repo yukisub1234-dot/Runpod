@@ -12,34 +12,34 @@ import subprocess
 DOWNLOAD_LIST = [
     {
         "source": "civitai",
-        "target": "2540892", 
-        "file": "WAN2.2_Enhanced_NSFW_lora.safetensors",
-        "path": f"{COMFYUI_ROOT}/models/loras"
-    },{
-        "source": "civitai",
-        "target": "2342652", 
+        "target": "2342652",  # 例: CivitaiのバージョンID
         "file": "paizuri_lora.safetensors",
-        "path": f"{COMFYUI_ROOT}/models/loras"
+        "type": "lora",
+        "rename_to": "paizuri" # 保存名
     },{
         "source": "civitai",
-        "target": "2504591", 
+        "target": "2504591",  # 例: CivitaiのバージョンID
         "file": "onani_lora.safetensors",
-        "path": f"{COMFYUI_ROOT}/models/loras"
+        "type": "lora",
+        "rename_to": "onani" # 保存名
     },{
         "source": "civitai",
-        "target": "2235288", 
+        "target": "2235288",  # 例: CivitaiのバージョンID
         "file": "blowjob_lora.safetensors",
-        "path": f"{COMFYUI_ROOT}/models/loras"
+        "type": "lora",
+        "rename_to": "blowjob" # 保存名
     },{
         "source": "civitai",
-        "target": "1602715", 
-        "file": "cumshot_lora.safetensors",
-        "path": f"{COMFYUI_ROOT}/models/loras"
+        "target": "1602715",  # 例: CivitaiのバージョンID
+        "file": "bukkake_lora.safetensors",
+        "type": "lora",
+        "rename_to": "bukkake" # 保存名
     },{
         "source": "civitai",
-        "target": "2210320", 
-        "file": "momareru_lora.safetensors",
-        "path": f"{COMFYUI_ROOT}/models/loras"
+        "target": "2210320",  # 例: CivitaiのバージョンID
+        "file": "paimomi_lora.safetensors",
+        "type": "lora",
+        "rename_to": "paimomi" # 保存名
     }
 ]
 
