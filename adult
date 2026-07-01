@@ -40,7 +40,14 @@ DOWNLOAD_LIST = [
         "file": "paimomi_lora.safetensors",
         "type": "lora",
         "rename_to": "paimomi" # 保存名
-    }
+    },
+    {
+        "source": "hf",
+        "target": "NSFW-API/NSFW-Wan-UMT5-XXL",
+        "file": "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
+        "type": "clip",
+        "rename_to": "nsfw_wan_umt5-xxl_fp8_scaled"
+    },
 ]
 
 
