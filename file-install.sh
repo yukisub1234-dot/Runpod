@@ -1,40 +1,30 @@
-# システム全体のアップデートと aria2 のインストール（初回のみ、パスワード不要）
-apt-get update && apt-get install -y aria2
-
-# Pythonスクリプトの生成
+# Pythonスクリプトを確実なwget形式に書き換え
 cat << 'EOF' > download_all.py
 import os
 import sys
 import subprocess
 
 # ====================================================================
-# 1. 共通設定（APIトークンを入力してください）
+# 1. 秘密鍵（環境変数）からトークンを自動取得
 # ====================================================================
-CIVITAI_TOKEN = os.environ.get("civitai_token", "")
+CIVITAI_TOKEN = os.environ.get("CIVITAI_TOKEN", "")
 HF_TOKEN = os.environ.get("HF_TOKEN", "")
 
-COMFYUI_ROOT = "/workspace/ComfyUI"
+COMFYUI_ROOT = "/ComfyUI"
 
-# トークンが取得できているか簡易チェック
 if not CIVITAI_TOKEN:
-    print("ℹ️ Civitai トークンは環境変数から検出されませんでした（空のまま続行します）")
+    print("ℹ️ Civitai トークンは環境変数から検出されませんでした")
 if not HF_TOKEN:
-    print("ℹ️ Hugging Face トークンは環境変数から検出されませんでした（空のまま続行します）")
-
-COMFYUI_ROOT = "/workspace/ComfyUI"
+    print("ℹ️ Hugging Face トークンは環境変数から検出されませんでした")
 
 # ====================================================================
 # 2. ダウンロードしたいファイルのリスト
-#    - source    : "civitai" または "hf"
-#    - target    : Civitaiは「Version ID」、HFは「リポジトリ名」
-#    - file      : Civitaiは「保存名」、HFは「リポジトリ上の正確なファイル名」
-#    - path      : 保存先フォルダのパス
 # ====================================================================
 DOWNLOAD_LIST = [
     {
         "source": "civitai",
-        "target": "123456", 
-        "file": "wan22_style_lora.safetensors",
+        "target": "", 
+        "file": "xxx_lora.safetensors",
         "path": f"{COMFYUI_ROOT}/models/loras"
     },
     {
@@ -42,12 +32,12 @@ DOWNLOAD_LIST = [
         "target": "Kijai/WanVideo_comfy",
         "file": "Wan2.1-Diffusion-14B-Text2Video-720P_quant2.sft",
         "path": f"{COMFYUI_ROOT}/models/checkpoints",
+        "rename_to": "wan2.1_720p_q2.sft"
     },
-    # 必要に応じて、以下に辞書オブジェクト（{}）を追加していけます
 ]
 
 # ====================================================================
-# 3. 自動判別・爆速ダウンロード処理ロジック
+# 3. 自動判別・ダウンロード処理ロジック
 # ====================================================================
 def ensure_dependencies(source):
     if source == "hf":
@@ -63,28 +53,31 @@ def download_item(item):
     target = item["target"].strip()
     filename = item["file"].strip()
     save_dir = item["path"].strip()
+    rename_to = item.get("rename_to")
     
     os.makedirs(save_dir, exist_ok=True)
     print(f"\n🚀 スタート: [{source.upper()}] -> {filename}")
 
     # ----------------------------------------------------------------
-    # Civitai の処理 (aria2c による16並列爆速ダウンロード)
+    # Civitai の処理 (リダイレクト・認証に強い wget で確実に落とす)
     # ----------------------------------------------------------------
     if source == "civitai":
         url = f"https://civitai.com/api/download/models/{target}"
-        if CIVITAI_TOKEN and CIVITAI_TOKEN != "ここに_Civitai_のAPIキーを入力":
+        if CIVITAI_TOKEN:
             url += f"?token={CIVITAI_TOKEN}"
         
+        save_path = os.path.join(save_dir, filename)
+        
+        # リダイレクトを完全に追跡し、403を回避するwgetオプション
         cmd = [
-            "aria2c", 
-            "-x", "16",       # 1サーバーへの最大接続数
-            "-s", "16",       # 分割ダウンロード数
-            "-d", save_dir,   # 保存先ディレクトリ
-            "-o", filename,   # 保存ファイル名
+            "wget", 
+            "--no-check-certificate",
+            "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)", 
+            "-O", save_path, 
             url
         ]
         
-        print(f"📥 実行コマンド (aria2 16並列): {' '.join(cmd)}")
+        print(f"📥 実行コマンド (wget 安定モード): {' '.join(cmd)}")
         subprocess.run(cmd)
 
     # ----------------------------------------------------------------
@@ -94,7 +87,7 @@ def download_item(item):
         ensure_dependencies("hf")
         
         env = os.environ.copy()
-        if HF_TOKEN and HF_TOKEN != "hf_ここに_HuggingFace_のトークンを入力":
+        if HF_TOKEN:
             env["HF_TOKEN"] = HF_TOKEN
             
         # hf_transfer 高速化モードを有効化
@@ -111,6 +104,15 @@ def download_item(item):
         print(f"📥 実行コマンド (hf_transfer モード): {' '.join(cmd)}")
         subprocess.run(cmd, env=env)
         
+        # ダウンロード後の自動リネーム処理
+        if rename_to:
+            old_path = os.path.join(save_dir, filename)
+            new_path = os.path.join(save_dir, rename_to.strip())
+            if os.path.exists(old_path):
+                os.rename(old_path, new_path)
+                print(f"🔄 ファイルをリネームしました: {filename} -> {rename_to}")
+            else:
+                print(f"⚠️ リネーム対象のファイルが見つかりません: {old_path}")
                 
     else:
         print(f"❌ 不明なソースタイプです: {source} (civitai または hf を指定してください)")
