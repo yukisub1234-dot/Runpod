@@ -13,7 +13,14 @@ ComfyUI モデル一括ダウンローダー(RunPod想定)
 使い方:
   export CIVITAI_TOKEN="..."
   export HF_TOKEN="..."
-  python download_all.py --config models.json --workers 3
+  python download_all.py --config models.json --workers 2
+
+注意(RunPod環境でのOOM対策):
+  大容量モデル(diffusionモデル等、数十GB)を複数並列でダウンロードすると、
+  Linuxのページキャッシュ増加によりコンテナのメモリ制限(cgroup)に抵触し、
+  実メモリ不足でなくても OOM Killer が作動することがあります。
+  本スクリプトはダウンロード・検証完了ごとに posix_fadvise でページキャッシュを
+  明示的に解放しますが、それでも発生する場合は --workers 1 を指定してください。
 """
 
 import os
@@ -91,6 +98,27 @@ def check_network_volume():
 
 
 # ====================================================================
+# ページキャッシュ解放(RunPodのcgroupメモリOOM対策)
+# ====================================================================
+def drop_page_cache(path: str):
+    """
+    ダウンロード/検証で読み書きしたファイルのページキャッシュを明示的に解放する。
+    ファイルの実体は消えず、次回アクセス時はディスクから再読込されるだけ。
+    Linux以外や権限不足の環境では黙って無視する。
+    """
+    if not hasattr(os, "posix_fadvise") or not hasattr(os, "POSIX_FADV_DONTNEED"):
+        return
+    try:
+        fd = os.open(path, os.O_RDONLY)
+        try:
+            os.posix_fadvise(fd, 0, 0, os.POSIX_FADV_DONTNEED)
+        finally:
+            os.close(fd)
+    except OSError as e:
+        log(f"⚠️ ページキャッシュ解放に失敗しました(無視して続行): {path} ({e})")
+
+
+# ====================================================================
 # ハッシュ計算 & 検証
 # ====================================================================
 def compute_sha256(path: str) -> str:
@@ -119,6 +147,7 @@ def validate_file(path: str, expected_sha256: str = "") -> bool:
     if expected_sha256:
         log(f"🔍 SHA256検証中: {os.path.basename(path)}")
         actual = compute_sha256(path)
+        drop_page_cache(path)  # ハッシュ計算で読み込んだ分のキャッシュを即解放
         if actual.lower() != expected_sha256.lower():
             log(f"❌ ハッシュ不一致: {os.path.basename(path)}\n"
                 f"   期待値: {expected_sha256}\n   実際値: {actual}")
@@ -271,6 +300,9 @@ def process_item(item: dict) -> dict:
                 os.remove(final_path)
             return {"file": final_name, "status": "validation_failed"}
 
+        # ダウンロード時の書き込みバッファ分もまとめて解放(cgroupメモリOOM対策)
+        drop_page_cache(final_path)
+
         mark_completed(final_path)
         log(f"✅ 完了: {final_name}")
         return {"file": final_name, "status": "success"}
@@ -337,8 +369,27 @@ def main():
         default="models.json",
         help="モデルリストのJSONファイル。ファイルパス、または configs/ 内のプリセット名(拡張子省略可)",
     )
-    parser.add_argument("--workers", type=int, default=3, help="並列ダウンロード数")
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=2,
+        help="並列ダウンロード数。大容量モデル(diffusion等)を含む場合、"
+             "RunPodのメモリ制限でOOMになりやすいので 1〜2 を推奨",
+    )
     parser.add_argument("--list", action="store_true", help="利用可能なプリセット一覧を表示して終了")
+
+    single = parser.add_argument_group(
+        "単体ダウンロード(起動後に1個だけ追加したい場合。JSON編集不要)"
+    )
+    single.add_argument("--add", action="store_true", help="--source/--target/--file 等で指定した1件のみをDL")
+    single.add_argument("--source", choices=["civitai", "hf"], help="civitai または hf")
+    single.add_argument("--target", help="CivitaiのモデルID、またはHFのリポジトリ名")
+    single.add_argument("--file", dest="file_", metavar="FILE", help="ファイル名(HFの場合はリポジトリ内パス)")
+    single.add_argument("--type", dest="type_", metavar="TYPE", default="checkpoint",
+                         help="保存先タイプ(checkpoint/lora/vae/clip/diffusion/upscale/controlnet)")
+    single.add_argument("--rename-to", help="保存後にリネームしたい場合のファイル名")
+    single.add_argument("--sha256", default="", help="整合性検証用のSHA256(任意)")
+
     args = parser.parse_args()
 
     if args.list:
@@ -351,6 +402,29 @@ def main():
         log("ℹ️ HF_TOKEN 未設定(gatedモデルはDL不可)")
 
     check_network_volume()
+
+    # --- 単体ダウンロードモード: 起動後に1個だけ追加したいケース ---
+    if args.add:
+        missing = [name for name, val in
+                   [("--source", args.source), ("--target", args.target), ("--file", args.file_)]
+                   if not val]
+        if missing:
+            log(f"❌ --add には {', '.join(missing)} が必須です")
+            sys.exit(1)
+
+        item = {
+            "source": args.source,
+            "target": args.target,
+            "file": args.file_,
+            "type": args.type_,
+            "sha256": args.sha256,
+        }
+        if args.rename_to:
+            item["rename_to"] = args.rename_to
+
+        result = process_item(item)
+        log(f"\n{'✅ 完了' if result['status'] == 'success' else '❌ 失敗(' + result['status'] + ')'}: {result['file']}")
+        sys.exit(0 if result["status"] in ("success", "already_exists", "duplicate_skip") else 1)
 
     config_path = resolve_config_path(args.config)
     if config_path is None:
