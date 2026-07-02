@@ -2,6 +2,21 @@
 
 RunPod上のComfyUI環境向けに、Civitai / Hugging Face からモデル(チェックポイント・LoRA・VAE・テキストエンコーダーなど)を一括ダウンロードするスクリプトです。
 
+JupyterLabのターミナルで以下を貼り付け
+```bash
+# リポジトリをクローン
+cd /workspace
+git clone https://github.com/yukisub1234-dot/Runpod.git
+cd Runpod
+
+# 環境変数が見えているか確認(トークンの中身は表示しない)
+echo "CIVITAI_TOKEN: ${CIVITAI_TOKEN:+設定済み}"
+echo "HF_TOKEN: ${HF_TOKEN:+設定済み}"
+
+# 実行
+python download_all.py --config adult-file-list --workers 2
+```
+
 ## 特徴
 
 - **並列ダウンロード**: `ThreadPoolExecutor` により複数モデルを同時取得
@@ -138,15 +153,14 @@ echo "CIVITAI_TOKEN: ${CIVITAI_TOKEN:+設定済み}"
 echo "HF_TOKEN: ${HF_TOKEN:+設定済み}"
 
 # 実行
-python download_all.py --config models.json --workers 3
 # configs/wan22-base.json を使う場合(名前だけでOK)
-python download_all.py --config wan22-base --workers 3
+python download_all.py --config wan22-base --workers 2
 
 # 拡張子付きでも可
-python download_all.py --config wan22-base.json --workers 3
+python download_all.py --config wan22-base.json --workers 2
 
 # configs/ 以外の場所にあるJSONを直接指定する場合
-python download_all.py --config /workspace/custom/my-list.json --workers 3
+python download_all.py --config /workspace/custom/my-list.json --workers 2
 ```
 
 | オプション   | デフォルト     | 説明                                                        |
