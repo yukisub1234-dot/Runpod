@@ -1,3 +1,7 @@
-# Runpod-Container-start-command
+# Runpodのファイルダウンロードを自動化します
 # JupyterLabで実行
-# curl -fsSL https://raw.githubusercontent.com/yukisub1234-dot/Runpod-Container-start-command/refs/heads/main/setup_wan22.sh -o /tmp/setup_wan22.sh && bash /tmp/setup_wan22.sh
+# cd /workspace/リポジトリ名
+nohup python download_all.py --config models.json --workers 3 > download.log 2>&1 &
+
+# 進捗確認
+tail -f download.log
