@@ -3,26 +3,51 @@
   "_comment2": "sha256 は任意。Civitaiのモデル詳細ページ or HFのファイル情報に記載されているハッシュ値を貼ると整合性検証されます",
   "models": [
     {
-      "source": "civitai",
-      "target": "XXXXXXX",
-      "file": "realistic_checkpoint.safetensors",
-      "type": "checkpoint",
-      "sha256": ""
+        "source": "civitai",
+        "target": "2342652", 
+        "file": "paizuri_lora.safetensors",
+        "type": "lora",
+        "rename_to": "paizuri.safetensors",
+        "sha256": ""
     },
     {
-      "source": "civitai",
-      "target": "YYYYYYY",
-      "file": "style_lora.safetensors",
-      "type": "lora",
-      "rename_to": "my_style.safetensors",
-      "sha256": ""
+        "source": "civitai",
+        "target": "2504591", 
+        "file": "onani_lora.safetensors",
+        "type": "lora",
+        "rename_to": "onani.safetensors",
+        "sha256": ""
     },
     {
-      "source": "hf",
-      "target": "Comfy-Org/Wan_2.1_ComfyUI_repackaged",
-      "file": "split_files/vae/wan_2.1_vae.safetensors",
-      "type": "vae",
-      "sha256": ""
+        "source": "civitai",
+        "target": "2235288", 
+        "file": "blowjob_lora.safetensors",
+        "type": "lora",
+        "rename_to": "blowjob.safetensors",
+        "sha256": ""
+    },
+    {
+        "source": "civitai",
+        "target": "1602715", 
+        "file": "bukkake_lora.safetensors",
+        "type": "lora",
+        "rename_to": "bukkake.safetensors",
+        "sha256": ""
+    },
+    {
+        "source": "civitai",
+        "target": "2210320", 
+        "file": "paimomi_lora.safetensors",
+        "type": "lora",
+        "rename_to": "paimomi.safetensors",
+        "sha256": ""
+    },
+    {
+        "source": "hf",
+        "target": "NSFW-API/NSFW-Wan-UMT5-XXL",
+        "file": "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
+        "type": "clip",
+        "sha256": ""
     }
   ]
 }
