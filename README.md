@@ -128,6 +128,17 @@ python download_all.py --list
 `--config` にはプリセット名(拡張子省略可)、または任意のパスを指定できます。
 
 ```bash
+# リポジトリをクローン
+cd /workspace
+git clone https://github.com/あなたのユーザー名/リポジトリ名.git
+cd リポジトリ名
+
+# 環境変数が見えているか確認(トークンの中身は表示しない)
+echo "CIVITAI_TOKEN: ${CIVITAI_TOKEN:+設定済み}"
+echo "HF_TOKEN: ${HF_TOKEN:+設定済み}"
+
+# 実行
+python download_all.py --config models.json --workers 3
 # configs/wan22-base.json を使う場合(名前だけでOK)
 python download_all.py --config wan22-base --workers 3
 
