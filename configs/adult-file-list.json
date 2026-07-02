@@ -4,6 +4,14 @@
   "models": [
     {
         "source": "civitai",
+        "target": "177674", 
+        "file": "nude_lora.safetensors",
+        "type": "lora",
+        "rename_to": "nude.safetensors",
+        "sha256": "DCC6CED0BFCDFF1F80EBA6B21A9097906E3DFE37B50518FF100618EECB6A5E3D"
+    },
+    {
+        "source": "civitai",
         "target": "2342652", 
         "file": "paizuri_lora.safetensors",
         "type": "lora",
