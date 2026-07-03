@@ -11,13 +11,13 @@ echo "CIVITAI_TOKEN: ${CIVITAI_TOKEN:+設定済み}"
 echo "HF_TOKEN: ${HF_TOKEN:+設定済み}"
 
 # 実行
-python download_all.py --config adult-file-list --workers 2
+python3 download_all.py --config adult-file-list --workers 2
 ```
 
 起動後JupyterLabのターミナルで以下を貼り付け（個別追加）
 ```bash
 # Civitaiから1個追加
-python download_all.py --add \
+python3 download_all.py --add \
   --source civitai \
   --target 2342652 \
   --file paizuri_lora.safetensors \
@@ -25,7 +25,7 @@ python download_all.py --add \
   --rename-to my_lora.safetensors
 
 # Hugging Faceから1個追加
-python download_all.py --add \
+python3 download_all.py --add \
   --source hf \
   --target Comfy-Org/Wan_2.2_ComfyUI_Repackaged \
   --file split_files/diffusion_models/wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors \
