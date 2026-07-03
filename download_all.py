@@ -39,7 +39,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # ====================================================================
 CIVITAI_TOKEN = os.environ.get("CIVITAI_TOKEN", "")
 HF_TOKEN = os.environ.get("HF_TOKEN", "")
-COMFYUI_ROOT = os.environ.get("COMFYUI_ROOT", "/workspace/runpod-slim")
+COMFYUI_ROOT = os.environ.get("COMFYUI_ROOT", "/workspace/runpod-slim/ComfyUI")
 
 DIR_MAPPING = {
     "diffusion": f"{COMFYUI_ROOT}/models/diffusion_models",
