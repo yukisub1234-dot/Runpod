@@ -13,7 +13,7 @@ ComfyUI モデル一括ダウンローダー(RunPod想定)
 使い方:
   export CIVITAI_TOKEN="..."
   export HF_TOKEN="..."
-  python download_all.py --config models.json --workers 2
+  python3 download_all.py --config models.json --workers 2
 
 注意(RunPod環境でのOOM対策):
   大容量モデル(diffusionモデル等、数十GB)を複数並列でダウンロードすると、
