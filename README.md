@@ -81,12 +81,40 @@ RunPod公式テンプレート **「ComfyUI - CUDA 13」**(`github.com/runpod-wo
 |---|---|---|---|
 | `wan22-lightweight-fast` | TI2V-5B(単一モデル・fp16) | T2V/I2V両対応、720p@24fps。速度優先 | 約24GB |
 | `wan22-high-quality` | T2V-A14B + I2V-A14B(MoE高/低ノイズ・fp8_scaled) | 映画的な質感・複雑な動きに強いMoE構成 | 約24GB(fp8) |
-| `wan22-long-duration` | I2V-A14B(fp8_scaled) + SVI v2.0 Pro LoRA | セグメントを連結し60秒程度までのシームレスな動画生成 | 約24GB |
+| `wan22-long-duration` | I2V-A14B(Kijai/KJ形式fp8) + SVI v2.0 Pro LoRA + LightX2V | セグメントを連結し60秒程度までのシームレスな動画 | 約24GB |
+| `wan22-speed-boost-loras` | LightX2V 4-stepディスティルLoRA(T2V/I2V, High/Low) | `wan22-high-quality`に重ねて3〜4倍高速化するアドオン | 数百MB |
 
 **注意点**:
 - `wan22-high-quality` と `wan22-long-duration` はMoE構成(High-Noise/Low-Noiseの2モデル切替)のため、KSampler(Advanced)を2回使うワークフローが必要です(公式テンプレート「Wan2.2 14B T2V/I2V」で対応)。
-- `wan22-long-duration` のSVIワークフローは `ComfyUI-KJNodes`(このテンプレートにプリインストール済み)を使用します。ワークフローJSON自体は別途配布元(Stable-Video-Infinity)から入手してください。
+- `wan22-long-duration` のdiffusionモデルは**ネイティブComfyUI形式ではなく**、`ComfyUI-KJNodes`の`DiffusionModelLoaderKJ`ノード専用形式(Kijaiリポジトリ配布)です。ノード自体はこのテンプレートにプリインストール済みです。
 - fp8_scaledはfp16よりVRAM消費を抑えつつ品質劣化を最小化した形式です。さらに高品質を求める場合はfp16版に差し替え可能ですが、必要VRAMが大幅に増えます(A14Bのfp16は80GB級GPU相当)。
+
+## 高速化のオプション(品質への影響で2段階)
+
+**① 本当に無劣化な高速化(推奨・まず試す)**
+
+推論カーネルの最適化で、出力はほぼ変わらず速度だけ向上します。`/workspace/runpod-slim/comfyui_args.txt` に追記してComfyUIを再起動してください。
+
+```
+--use-sage-attention
+--fast
+```
+
+- `--use-sage-attention`: Attentionの計算を高速なカーネルに置き換え(要`sageattention`パッケージ、ComfyUI-Managerからインストール可)
+- `--fast`: fp8行列演算の高速パスを有効化(対応GPUのみ)
+
+**② トレードオフのある高速化(LightX2V 4-stepディスティルLoRA)**
+
+`wan22-speed-boost-loras` で導入できます。20ステップ→6ステップ程度まで削減し3〜4倍高速化しますが、ComfyOrg公式ブログでも「動きのダイナミズムがわずかに低下する場合がある」と明言されているとおり、完全な無劣化ではありません。まず①を試し、それでも遅い場合にLoRAの強度を1.0→0.7程度に下げながら試すのがおすすめです。
+
+## SVI v2.0 Pro ワークフロー(長尺動画生成)の入手
+
+`wan22-long-duration` のモデルに対応する公式サンプルワークフローは、KJ(Kijai)氏がGitHub上で配布しています。ライセンスの都合上ここには埋め込めないため、以下から直接取得してください。
+
+- ワークフロー本体(JSON): https://github.com/user-attachments/files/24359648/wan22_SVI_Pro_native_example_KJ.json
+- より高機能な派生版(セグメントごとのLoRA切替・保存/再開対応、v3.0): https://civitai.com/models/2368359/long-videos-with-full-control-wan-22-i2v-svi-2-pro-individual-lora-multiple-reference-images-and-more
+
+取得したJSONファイルをComfyUIの画面にドラッグ&ドロップすれば読み込まれます。不足しているカスタムノードが赤く表示された場合は、ComfyUI-Managerの「Install Missing Custom Nodes」で解決してください。
 
 ダウンロードしたファイルは種類に応じて `COMFYUI_ROOT/models/` 配下の各サブディレクトリに自動配置されます。
 
@@ -247,7 +275,7 @@ python3 download_all.py --config /workspace/custom/my-list.json --workers 3
 JupyterLabやSSHセッションが切れてもダウンロードを継続させたい場合:
 
 ```bash
-nohup python download_all.py --config wan22-lightweight-fast --workers 2 > download.log 2>&1 &
+nohup python3 download_all.py --config wan22-lightweight-fast --workers 2 > download.log 2>&1 &
 tail -f download.log   # 進捗確認(Ctrl+Cで監視終了、DLは継続)
 ```
 
@@ -305,12 +333,6 @@ print("HF_TOKEN:", "設定済み" if os.environ.get("HF_TOKEN") else "未設定"
 *.ckpt
 *.pt
 .env
-download.log
-```
-
-## ライセンス
-
-ダウンロードするモデル自体のライセンス・利用規約は、各配布元(Civitai / Hugging Face)のページで個別にご確認ください。
 download.log
 ```
 
