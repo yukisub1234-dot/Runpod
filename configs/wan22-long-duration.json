@@ -1,16 +1,17 @@
 {
-  "_description": "長尺セット: Wan2.2 I2V-A14B(fp8_scaled) + SVI v2.0 Pro LoRA。セグメントを連結し60秒程度までのシームレスな長尺動画生成が可能(ComfyUI-KJNodesのSVI対応ワークフローが必要)",
+  "_description": "長尺セット: Wan2.2 I2V-A14B(Kijai fp8_scaled/KJ形式) + SVI v2.0 Pro LoRA + LightX2V 4-stepディスティルLoRA。セグメントを連結し60秒程度までのシームレスな長尺動画生成が可能。注意: ここのdiffusionモデルはネイティブComfyUI形式ではなく、ComfyUI-KJNodesのDiffusionModelLoaderKJノード専用形式です(このテンプレートにプリインストール済み)",
   "models": [
     {
       "source": "hf",
-      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
-      "file": "split_files/diffusion_models/wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
-      "type": "diffusion"
+      "target": "Kijai/WanVideo_comfy_fp8_scaled",
+      "file": "I2V/Wan2_2-I2V-A14B-HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "type": "diffusion",
+      "sha256": "b3a6e732feb5fd5fa35f5e3ef612fa1f0a77dc66601fbf999d4f84a01e7120a6"
     },
     {
       "source": "hf",
-      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
-      "file": "split_files/diffusion_models/wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
+      "target": "Kijai/WanVideo_comfy_fp8_scaled",
+      "file": "I2V/Wan2_2-I2V-A14B-LOW_fp8_e4m3fn_scaled_KJ.safetensors",
       "type": "diffusion"
     },
     {
@@ -23,6 +24,18 @@
       "source": "hf",
       "target": "vita-video-gen/svi-model",
       "file": "version-2.0/SVI_Wan2.2-I2V-A14B_low_noise_lora_v2.0_pro.safetensors",
+      "type": "lora"
+    },
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors",
+      "type": "lora"
+    },
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors",
       "type": "lora"
     },
     {
