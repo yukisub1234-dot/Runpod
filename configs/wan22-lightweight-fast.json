@@ -1,0 +1,23 @@
+{
+  "_description": "軽量・高速セット: Wan2.2 TI2V-5B(単一モデル)。T2V/I2V両対応、720p@24fps、24GB級GPUで動作。生成速度重視の用途に",
+  "models": [
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors",
+      "type": "diffusion"
+    },
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/vae/wan2.2_vae.safetensors",
+      "type": "vae"
+    },
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "clip"
+    }
+  ]
+}
