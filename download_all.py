@@ -49,9 +49,11 @@ DIR_MAPPING = {
     "vae": f"{COMFYUI_ROOT}/models/vae",
     "upscale": f"{COMFYUI_ROOT}/models/upscale_models",
     "controlnet": f"{COMFYUI_ROOT}/models/controlnet",
+    "workflow": f"{COMFYUI_ROOT}/user/default/workflows",
 }
 
-MIN_VALID_SIZE_BYTES = 1024 * 1024  # 1MB未満は失敗扱い
+MIN_VALID_SIZE_BYTES = 1024 * 1024      # モデル等の一般ファイル: 1MB未満は失敗扱い
+MIN_VALID_WORKFLOW_SIZE_BYTES = 200     # ワークフローJSON: 数十KB程度が普通なので閾値を下げる
 HASH_CHUNK_SIZE = 8 * 1024 * 1024   # 8MBずつ読んでハッシュ計算(メモリ節約)
 
 CONFIGS_DIR = Path(__file__).resolve().parent / "configs"
@@ -129,12 +131,13 @@ def compute_sha256(path: str) -> str:
     return h.hexdigest()
 
 
-def validate_file(path: str, expected_sha256: str = "") -> bool:
+def validate_file(path: str, expected_sha256: str = "", min_size_bytes: int = MIN_VALID_SIZE_BYTES,
+                   require_json: bool = False) -> bool:
     if not os.path.exists(path):
         return False
 
     size = os.path.getsize(path)
-    if size < MIN_VALID_SIZE_BYTES:
+    if size < min_size_bytes:
         log(f"⚠️ ファイルサイズが不審に小さいです ({size} bytes): {path}")
         return False
 
@@ -142,6 +145,14 @@ def validate_file(path: str, expected_sha256: str = "") -> bool:
         head = f.read(15)
         if head.startswith(b"<!DOCTYPE") or head.startswith(b"<html"):
             log(f"⚠️ HTMLが返却されています(認証エラー等の可能性): {path}")
+            return False
+
+    if require_json:
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                json.load(f)
+        except (json.JSONDecodeError, UnicodeDecodeError) as e:
+            log(f"⚠️ 有効なJSONではありません: {path} ({e})")
             return False
 
     if expected_sha256:
@@ -189,6 +200,34 @@ def ensure_hf_deps():
             [sys.executable, "-m", "pip", "install", "-U", "huggingface_hub[cli]", "hf_transfer"],
             check=True,
         )
+
+
+def download_url(url: str, filename: str, save_path: str, retries: int = 3) -> bool:
+    """
+    Civitai/HF以外の任意のURL(GitHub添付ファイル、raw.githubusercontent.com、
+    直リンクのワークフローJSONなど)から直接ダウンロードする。
+    """
+    for attempt in range(1, retries + 1):
+        cmd = [
+            "wget",
+            "--no-check-certificate",
+            "-L",  # リダイレクト追従(GitHub添付ファイルは署名付きURLへリダイレクトされる)
+            "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+            "-O", save_path,
+            url,
+        ]
+        log(f"📥 [URL 試行 {attempt}/{retries}] {filename}")
+        result = subprocess.run(cmd, capture_output=True)
+
+        if result.returncode == 0 and os.path.exists(save_path):
+            return True
+
+        log(f"❌ 失敗 (returncode={result.returncode}): {filename}")
+        if os.path.exists(save_path):
+            os.remove(save_path)
+        time.sleep(3)
+
+    return False
 
 
 # ====================================================================
@@ -243,7 +282,8 @@ def download_hf(target, filename, save_dir) -> str | None:
 # ====================================================================
 def process_item(item: dict) -> dict:
     source = item["source"].lower().strip()
-    target = item["target"].strip()
+    target = item.get("target", "").strip()
+    url_field = item.get("url", "").strip()
     filename = item["file"].strip()
     rename_to = item.get("rename_to")
     file_type = item.get("type", "").lower().strip()
@@ -255,6 +295,10 @@ def process_item(item: dict) -> dict:
     final_name = rename_to if rename_to else os.path.basename(filename)
     final_path = os.path.join(save_dir, final_name)
 
+    # workflow(JSON)は容量が小さいため検証条件を切り替える
+    is_workflow = file_type == "workflow" or final_name.lower().endswith(".json")
+    min_size = MIN_VALID_WORKFLOW_SIZE_BYTES if is_workflow else MIN_VALID_SIZE_BYTES
+
     # --- 重複防止: 同じ最終パスへの二重処理をブロック ---
     lock = get_lock_for(final_path)
     with lock:
@@ -263,7 +307,7 @@ def process_item(item: dict) -> dict:
             return {"file": final_name, "status": "duplicate_skip"}
 
         # --- 既存ファイルチェック(Network Volumeによる再DL防止) ---
-        if validate_file(final_path, expected_sha256):
+        if validate_file(final_path, expected_sha256, min_size_bytes=min_size, require_json=is_workflow):
             log(f"⏭️ スキップ(既存・検証済み): {final_name}")
             mark_completed(final_path)
             return {"file": final_name, "status": "already_exists"}
@@ -286,6 +330,16 @@ def process_item(item: dict) -> dict:
                     os.rename(path, final_path)
                 success = True
 
+        elif source == "url":
+            if not url_field:
+                log(f"❌ source=url には 'url' フィールドが必須です: {filename}")
+                return {"file": final_name, "status": "missing_url"}
+            tmp_path = os.path.join(save_dir, filename)
+            if download_url(url_field, filename, tmp_path):
+                if tmp_path != final_path:
+                    os.rename(tmp_path, final_path)
+                success = True
+
         else:
             log(f"❌ 不明なソース: {source}")
             return {"file": final_name, "status": "unknown_source"}
@@ -294,7 +348,7 @@ def process_item(item: dict) -> dict:
             return {"file": final_name, "status": "download_failed"}
 
         # --- ダウンロード後の検証 ---
-        if not validate_file(final_path, expected_sha256):
+        if not validate_file(final_path, expected_sha256, min_size_bytes=min_size, require_json=is_workflow):
             log(f"❌ 検証失敗のため削除: {final_name}")
             if os.path.exists(final_path):
                 os.remove(final_path)
@@ -382,11 +436,12 @@ def main():
         "単体ダウンロード(起動後に1個だけ追加したい場合。JSON編集不要)"
     )
     single.add_argument("--add", action="store_true", help="--source/--target/--file 等で指定した1件のみをDL")
-    single.add_argument("--source", choices=["civitai", "hf"], help="civitai または hf")
-    single.add_argument("--target", help="CivitaiのモデルID、またはHFのリポジトリ名")
+    single.add_argument("--source", choices=["civitai", "hf", "url"], help="civitai / hf / url(任意の直リンク)")
+    single.add_argument("--target", help="CivitaiのモデルID、またはHFのリポジトリ名(--source urlの場合は不要)")
+    single.add_argument("--url", help="直接ダウンロードするURL(--source url の場合に必須)")
     single.add_argument("--file", dest="file_", metavar="FILE", help="ファイル名(HFの場合はリポジトリ内パス)")
     single.add_argument("--type", dest="type_", metavar="TYPE", default="checkpoint",
-                         help="保存先タイプ(checkpoint/lora/vae/clip/diffusion/upscale/controlnet)")
+                         help="保存先タイプ(checkpoint/lora/vae/clip/diffusion/upscale/controlnet/workflow)")
     single.add_argument("--rename-to", help="保存後にリネームしたい場合のファイル名")
     single.add_argument("--sha256", default="", help="整合性検証用のSHA256(任意)")
 
@@ -405,16 +460,19 @@ def main():
 
     # --- 単体ダウンロードモード: 起動後に1個だけ追加したいケース ---
     if args.add:
-        missing = [name for name, val in
-                   [("--source", args.source), ("--target", args.target), ("--file", args.file_)]
-                   if not val]
+        if args.source == "url":
+            required = [("--source", args.source), ("--url", args.url), ("--file", args.file_)]
+        else:
+            required = [("--source", args.source), ("--target", args.target), ("--file", args.file_)]
+        missing = [name for name, val in required if not val]
         if missing:
             log(f"❌ --add には {', '.join(missing)} が必須です")
             sys.exit(1)
 
         item = {
             "source": args.source,
-            "target": args.target,
+            "target": args.target or "",
+            "url": args.url or "",
             "file": args.file_,
             "type": args.type_,
             "sha256": args.sha256,
