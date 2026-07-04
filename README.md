@@ -30,7 +30,6 @@ python3 download_all.py --add \
   --file split_files/diffusion_models/wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors \
   --type diffusion
 ```
-
 # ComfyUI Model Downloader
 
 RunPod公式テンプレート **「ComfyUI - CUDA 13」**(`github.com/runpod-workers/comfyui-base`)向けに、Civitai / Hugging Face からモデル(チェックポイント・LoRA・VAE・テキストエンコーダーなど)を目的別プリセットで一括ダウンロードするスクリプトです。
@@ -67,6 +66,9 @@ RunPod公式テンプレート **「ComfyUI - CUDA 13」**(`github.com/runpod-wo
 │   ├── wan22-lightweight-fast.json      # 軽量高速: Wan2.2 TI2V-5B
 │   ├── wan22-high-quality.json          # 高品質: Wan2.2 T2V/I2V-A14B(MoE, fp8)
 │   ├── wan22-long-duration.json         # 長尺: I2V-A14B + SVI v2.0 Pro LoRA
+│   ├── wan22-latent-continuation.json   # 長尺(Latent直接結合): Fun VACE-A14B
+│   ├── wan22-speed-boost-loras.json     # 高速化アドオン: LightX2V 4-stepLoRA
+│   ├── my-workflows.json                # 自分専用の調整済みワークフロー置き場(テンプレート)
 │   ├── realistic.json                   # 例: 写実系チェックポイント
 │   └── style-loras.json                 # 例: スタイルLoRAセット
 └── README.md
@@ -141,6 +143,41 @@ python3 download_all.py --add \
   --type workflow
 ```
 
+### プリセット別 推奨ワークフロー入手先
+
+| プリセット | 推奨ワークフロー | 確度 |
+|---|---|---|
+| `wan22-lightweight-fast` | Wan2.2 5B(TI2V)公式テンプレート | ✅ 確実(ComfyUI公式配布) |
+| `wan22-high-quality` | Wan2.2 14B T2V / 14B I2V 公式テンプレート | ✅ 確実(ComfyUI公式配布) |
+| `wan22-long-duration` | SVI v2.0 Pro native example(Kijai配布) | ✅ 確実(コミュニティ配布・実績多数) |
+| `wan22-latent-continuation` | wan-video-extender(Fun-VACE専用の延長カスタムノード) | ⚠️ 実験的。ノイズ・文脈不整合の不具合報告あり。導入前にリポジトリのIssuesを確認推奨 |
+
+```bash
+# Wan2.2 5B(TI2V)公式テンプレート
+python3 download_all.py --add --source url --type workflow \
+  --url "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/video_wan2_2_5B_ti2v.json" \
+  --file wan22_5b_ti2v.json
+
+# Wan2.2 14B T2V 公式テンプレート
+python3 download_all.py --add --source url --type workflow \
+  --url "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/video_wan2_2_14B_t2v.json" \
+  --file wan22_14b_t2v.json
+
+# Wan2.2 14B I2V 公式テンプレート
+python3 download_all.py --add --source url --type workflow \
+  --url "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/video_wan2_2_14B_i2v.json" \
+  --file wan22_14b_i2v.json
+
+# SVI v2.0 Pro(長尺動画生成)
+python3 download_all.py --add --source url --type workflow \
+  --url "https://github.com/user-attachments/files/24359648/wan22_SVI_Pro_native_example_KJ.json" \
+  --file wan22_svi_pro.json
+```
+
+**補足**: `wan22-lightweight-fast`と`wan22-high-quality`の公式テンプレートは、ComfyUIを最新版に更新していれば、そもそもダウンロード不要です。メニューの `Workflow → Browse Templates → Video` から直接読み込めます(「Wan2.2 5B video generation」「Wan2.2 14B T2V」「Wan2.2 14B I2V」)。上記コマンドは、ComfyUIのテンプレート一覧に見当たらない場合や、ヘッドレス環境で事前配置したい場合の代替手段です。
+
+**`wan22-latent-continuation`について**: Fun-VACEでの動画延長(latent直接結合)に特化した公式のワンクリックテンプレートは現時点で見つけられませんでした。`github.com/Granddyser/wan-video-extender` というカスタムノード+ワークフローが該当機能を提供していますが、Issuesを見る限り「出力がノイズだらけになる」「ループのたびに前と無関係な映像になる」といった報告が複数あります。導入する場合は、まずリポジトリのREADMEとIssuesで既知の制約を確認し、小さいテスト生成で挙動を確かめてから本番運用することをおすすめします。ネイティブの`WanVaceToVideo`+`TrimVideoLatent`を自分で組む方法(RunComfyの解説記事などが参考になります)の方が、遠回りでも安定するケースもあります。
+
 ### SVI v2.0 Pro ワークフロー(長尺動画生成)の入手例
 
 `wan22-long-duration` のモデルに対応する公式サンプルワークフローは、KJ(Kijai)氏がGitHub上で配布しています。上記のworkflow type経由で直接ダウンロードできます。
@@ -162,6 +199,59 @@ python3 download_all.py --add \
 | `upscale`     | `models/upscale_models`              |
 | `controlnet`  | `models/controlnet`                  |
 | `workflow`    | `user/default/workflows`             |
+
+## 自分専用ワークフローの運用(調整版の保存・使い回し)
+
+公式テンプレートやコミュニティ配布のワークフローを土台に、ステップ数・CFG・shift値などを調整して「これが最適」という設定が見つかったら、都度**別名で保存して自分のプリセットに組み込む**ことを推奨します。Podを作り直すたびにパラメータ探しをゼロからやり直さずに済みます。
+
+### 運用の流れ
+
+1. **元のテンプレートは上書きしない**。ComfyUIの「Save As」で別名保存し、調整版だけを増やしていく
+
+   ```
+   workflows/
+   ├── video_wan2_2_14B_t2v.json          # 公式オリジナル(参照用に残す)
+   └── wan22_14b_t2v_tuned_v1.json         # 自分が調整した版
+   ```
+
+2. **調整版を自分のGitHubリポジトリにpush**する(例: `my-comfyui-workflows`)
+
+3. **`configs/my-workflows.json`**(テンプレートとして同梱)に、そのファイルの `raw.githubusercontent.com` URLを追記する
+
+   ```json
+   {
+     "source": "url",
+     "url": "https://raw.githubusercontent.com/<your-username>/<your-repo>/main/workflows/wan22_14b_t2v_tuned_v1.json",
+     "file": "wan22_14b_t2v_tuned_v1.json",
+     "type": "workflow"
+   }
+   ```
+
+4. 以降は他のプリセットと同じように、モデルと一緒に自分専用の調整済みワークフローも一発で揃います
+
+   ```bash
+   python3 download_all.py --config my-workflows --workers 2
+   ```
+
+5. **変更点は同名の`.md`ファイルにメモを残す**。JSON自体は差分が読み取りにくいため、後から見返せるようにしておく
+
+   ```
+   workflows/wan22_14b_t2v_tuned_v1.md
+   ---
+   ベース: video_wan2_2_14B_t2v.json (公式テンプレート)
+   変更点:
+   - steps: 20 → 28 (ディテール向上、生成時間+40%)
+   - shift (ModelSamplingSD3): 5.0 → 8.0 (動きの硬さを軽減)
+   - CFG: 5.0 → 4.0 (色飽和を抑制)
+   検証環境: RTX 4090, 720p, 81frames
+   ```
+
+6. **カスタムノードのバージョンも固定しておく**。ワークフローJSONだけ保存しても、`ComfyUI-KJNodes`等が後日アップデートされると挙動が変わることがあるため、ComfyUI-Managerの「Workflow ⇄ Snapshot」機能を併用してノードのバージョンごと固定するとより確実です
+
+### `configs/my-workflows.json` について
+
+このテンプレートファイルはそのままではプレースホルダーのURLが入っているだけなので、`--list`には表示されますが、実行してもダウンロードは失敗します。自分のリポジトリ情報に書き換えてから使ってください。
+
 
 ## セットアップ
 
