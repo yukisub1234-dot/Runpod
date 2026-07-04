@@ -27,7 +27,7 @@
     },
     {
       "source": "url",
-      "url": "https://github.com/Granddyser/wan-video-extender",
+      "url": "https://github.com/Granddyser/wan-video-extender/blob/139b331c7a185da7713aaffdfdad8b5a42b4f546/example_workflows/wan-video-extender.json",
       "file": "latent_continuation_workflow.json",
       "type": "workflow"
     }
