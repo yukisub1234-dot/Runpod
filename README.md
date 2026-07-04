@@ -2,9 +2,8 @@
 起動後JupyterLabのターミナルで以下を貼り付け（一括追加）
 ```bash
 # リポジトリをクローン
-cd /workspace
-git clone https://github.com/yukisub1234-dot/Runpod.git
-cd Runpod
+git clone https://github.com/yukisub1234-dot/Runpod_setup.git
+cd Runpod_setup
 
 # 環境変数が見えているか確認(トークンの中身は表示しない)
 echo "CIVITAI_TOKEN: ${CIVITAI_TOKEN:+設定済み}"
