@@ -59,6 +59,14 @@
         "sha256": "379C267CA9E6021BDE9763C74A76117335181B189EDBCD06E29ACF1D16F6AF10"
     },
     {
+        "source": "civitai",
+        "target": "2164213", 
+        "file": "double_blowjob_lora.safetensors",
+        "type": "lora",
+        "rename_to": "double_blowjob.safetensors",
+        "sha256": "F28F656A994BB93366C97018BCB0CF4EF0C5B125AF463666C74C61D755024B4D"
+    },
+    {
         "source": "hf",
         "target": "NSFW-API/NSFW-Wan-UMT5-XXL",
         "file": "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
