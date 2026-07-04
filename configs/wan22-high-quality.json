@@ -37,6 +37,12 @@
       "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
       "file": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
       "type": "clip"
+    },
+    {
+      "source": "url",
+      "url": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/video_wan2_2_14B_i2v.json",
+      "file": "wan22-high-quality.json",
+      "type": "workflow"
     }
   ]
 }
