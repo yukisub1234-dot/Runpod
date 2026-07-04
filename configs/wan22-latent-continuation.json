@@ -1,0 +1,29 @@
+{
+  "_description": "潜在空間(Latent)直接結合セット: Wan2.2 Fun VACE-A14B(fp8_scaled)。VAEでのデコード/再エンコードを挟まず、前セグメントの潜在表現(latent)を直接コンテキストとして次セグメントに渡すため、SVI方式のようなLoRA追加なしで、ネイティブComfyUI標準ノード(WanVaceToVideo / TrimVideoLatent)だけで動画の続きを生成できる。多重の圧縮劣化が起きにくいのが利点",
+  "models": [
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/diffusion_models/wan2.2_fun_vace_high_noise_14B_fp8_scaled.safetensors",
+      "type": "diffusion"
+    },
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/diffusion_models/wan2.2_fun_vace_low_noise_14B_fp8_scaled.safetensors",
+      "type": "diffusion"
+    },
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.1_ComfyUI_repackaged",
+      "file": "split_files/vae/wan_2.1_vae.safetensors",
+      "type": "vae"
+    },
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "clip"
+    }
+  ]
+}
