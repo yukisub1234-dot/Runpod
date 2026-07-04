@@ -31,6 +31,7 @@ python3 download_all.py --add \
   --file split_files/diffusion_models/wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors \
   --type diffusion
 ```
+
 # ComfyUI Model Downloader
 
 RunPod公式テンプレート **「ComfyUI - CUDA 13」**(`github.com/runpod-workers/comfyui-base`)向けに、Civitai / Hugging Face からモデル(チェックポイント・LoRA・VAE・テキストエンコーダーなど)を目的別プリセットで一括ダウンロードするスクリプトです。
@@ -69,6 +70,7 @@ RunPod公式テンプレート **「ComfyUI - CUDA 13」**(`github.com/runpod-wo
 │   ├── wan22-long-duration.json         # 長尺: I2V-A14B + SVI v2.0 Pro LoRA
 │   ├── wan22-latent-continuation.json   # 長尺(Latent直接結合): Fun VACE-A14B
 │   ├── wan22-speed-boost-loras.json     # 高速化アドオン: LightX2V 4-stepLoRA
+│   ├── wan22-vace-fun-optimized.json    # アップロード済みワークフロー専用の最適化プリセット
 │   ├── my-workflows.json                # 自分専用の調整済みワークフロー置き場(テンプレート)
 │   ├── realistic.json                   # 例: 写実系チェックポイント
 │   └── style-loras.json                 # 例: スタイルLoRAセット
@@ -86,11 +88,26 @@ RunPod公式テンプレート **「ComfyUI - CUDA 13」**(`github.com/runpod-wo
 | `wan22-long-duration` | I2V-A14B(Kijai/KJ形式fp8) + SVI v2.0 Pro LoRA + LightX2V | セグメントを連結し60秒程度までのシームレスな動画(SVI方式) | 約24GB |
 | `wan22-latent-continuation` | Fun VACE-A14B(fp8_scaled) | 潜在空間(Latent)を直接引き継いで動画の続きを生成。ネイティブノードのみ、追加LoRA不要 | 約24GB |
 | `wan22-speed-boost-loras` | LightX2V 4-stepディスティルLoRA(T2V/I2V, High/Low) | `wan22-high-quality`に重ねて3〜4倍高速化するアドオン | 数百MB |
+| `wan22-vace-fun-optimized` | T2V-A14B(KJ形式) + Fun-VACEモジュール(bf16) + LightX2V | アップロードされた`wan22-vace-fun.json`ワークフロー専用。ノードのウィジェット値と完全一致するファイル名・配置(サブフォルダ込み)で構成 | 約40GB(bf16モジュール込み) |
 
 **注意点**:
 - `wan22-high-quality` と `wan22-long-duration` はMoE構成(High-Noise/Low-Noiseの2モデル切替)のため、KSampler(Advanced)を2回使うワークフローが必要です(公式テンプレート「Wan2.2 14B T2V/I2V」で対応)。
 - `wan22-long-duration` のdiffusionモデルは**ネイティブComfyUI形式ではなく**、`ComfyUI-KJNodes`の`DiffusionModelLoaderKJ`ノード専用形式(Kijaiリポジトリ配布)です。ノード自体はこのテンプレートにプリインストール済みです。
 - fp8_scaledはfp16よりVRAM消費を抑えつつ品質劣化を最小化した形式です。さらに高品質を求める場合はfp16版に差し替え可能ですが、必要VRAMが大幅に増えます(A14Bのfp16は80GB級GPU相当)。
+
+### `wan22-vace-fun-optimized`について
+
+このプリセットは特定のワークフロー(`wan22-vace-fun.json`)を解析し、そこで使われている`DiffusionModelLoaderKJ`・`DiffusionModelSelector`・`LoraLoaderModelOnly`・`CLIPLoader`・`VAELoader`各ノードのウィジェット値(実際に選択されているファイル名)から、必要なファイルを一つずつ特定して構成しています。
+
+- ベースモデルはKijai/KJ形式のT2V-A14B(fp8)で、そこに別配布のFun-VACEモジュール(bf16)を`extra_state_dict`として動的にマージする構成です。**モデルファイル自体はまだVACE機能を持たず、モジュールを組み合わせて初めてVACE対応になります**
+- `rename_to`で`wan2.2/`・`wan/`・`Wan/`のようなサブフォルダを指定しており、ワークフロー側のドロップダウン値とファイルパスが完全一致するようにしています(サブフォルダが異なると、同じファイルでもComfyUI側で「見つからない」と表示されます)
+- テキストエンコーダーは、このワークフローが実際に選択していた`umt5_xxl_fp16.safetensors`(fp8_scaled版より大きい)に合わせています。VRAM/ディスクを節約したい場合は`umt5_xxl_fp8_e4m3fn_scaled.safetensors`に差し替えても動作しますが、その場合はワークフロー側のCLIPLoaderウィジェットも手動で変更してください
+
+```bash
+python3 download_all.py --config wan22-vace-fun-optimized --workers 1
+```
+
+合計40GB超になるため、`--workers 1`を強く推奨します。
 
 ### 長尺動画の2つの方式の違い
 
