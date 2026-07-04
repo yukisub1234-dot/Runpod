@@ -294,6 +294,8 @@ def process_item(item: dict) -> dict:
 
     final_name = rename_to if rename_to else os.path.basename(filename)
     final_path = os.path.join(save_dir, final_name)
+    # rename_to に "wan2.2/xxx.safetensors" のようなサブフォルダ付きパスを指定するケースに対応
+    os.makedirs(os.path.dirname(final_path), exist_ok=True)
 
     # workflow(JSON)は容量が小さいため検証条件を切り替える
     is_workflow = file_type == "workflow" or final_name.lower().endswith(".json")
