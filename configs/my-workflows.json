@@ -1,0 +1,26 @@
+{
+  "_description": "自分専用ワークフロー置き場: 公式テンプレートやコミュニティ配布物を土台に、自分が調整して最適解が見つかったワークフローJSONをここにまとめて管理する。GitHub等に自分のリポジトリを作り、raw.githubusercontent.com 経由でURLを指定する運用を想定",
+  "_usage": [
+    "1. ComfyUIで調整が済んだワークフローを『Save As』で別名保存する(元の公式/配布版は上書きしない)",
+    "2. 保存したJSONを自分のGitHubリポジトリ(例: my-comfyui-workflows)にpushする",
+    "3. 下のmodels配列に、そのファイルのraw.githubusercontent.com URLをsource:urlで追加する",
+    "4. 変更点は同名の.mdファイル(例: wan22_14b_t2v_tuned_v1.md)にメモしておくと、後で見返しやすい",
+    "5. ComfyUI-Managerの『Workflow snapshot』も一緒に保存しておくと、カスタムノードのバージョン差異による再現性の崩れを防げる"
+  ],
+  "models": [
+    {
+      "_comment": "以下はサンプル。実際のユーザー名・リポジトリ名・ファイル名に書き換えてください",
+      "source": "url",
+      "url": "https://raw.githubusercontent.com/<your-username>/<your-repo>/main/workflows/wan22_14b_t2v_tuned_v1.json",
+      "file": "wan22_14b_t2v_tuned_v1.json",
+      "type": "workflow"
+    },
+    {
+      "_comment": "調整版は複数バージョン並べて残しておくと、どの設定が良かったか比較しやすい",
+      "source": "url",
+      "url": "https://raw.githubusercontent.com/<your-username>/<your-repo>/main/workflows/wan22_svi_long_duration_tuned_v2.json",
+      "file": "wan22_svi_long_duration_tuned_v2.json",
+      "type": "workflow"
+    }
+  ]
+}
