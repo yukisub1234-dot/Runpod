@@ -60,7 +60,7 @@
     },
     {
         "source": "civitai",
-        "target": "2210320", 
+        "target": "2864091", 
         "file": "bouncing_boobs_lora.safetensors",
         "type": "lora",
         "rename_to": "bouncing_boobs.safetensors",
