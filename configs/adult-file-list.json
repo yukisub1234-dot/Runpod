@@ -76,14 +76,6 @@
     },
     {
         "source": "civitai",
-        "target": "2541538", 
-        "file": "kemona_lora.safetensors",
-        "type": "lora",
-        "rename_to": "ケモナー.safetensors",
-        "sha256": "B5AE5A7FBDF1459C24C5478C394DC97BBB24D20737B93B5F78851D900AC1AC20"
-    },
-    {
-        "source": "civitai",
         "target": "2164213", 
         "file": "double_blowjob_lora.safetensors",
         "type": "lora",
