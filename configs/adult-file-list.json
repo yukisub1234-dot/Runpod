@@ -24,7 +24,7 @@
         "file": "onani_lora.safetensors",
         "type": "lora",
         "rename_to": "onani.safetensors",
-        "sha256": ""
+        "sha256": "DBFEC14D2B71D3162329E29FDED9B1EC76218F64BB82E89D4A0B68D508F7B728"
     },
     {
         "source": "civitai",
@@ -56,7 +56,7 @@
         "file": "paimomi_lora.safetensors",
         "type": "lora",
         "rename_to": "paimomi.safetensors",
-        "sha256": ""
+        "sha256": "B04AED102FFC4BBBA7EC9D52EECE2507D33B6574838684731BBC47842004A763"
     },
     {
         "source": "civitai",
@@ -71,8 +71,16 @@
         "target": "2012120", 
         "file": "pussy_lora.safetensors",
         "type": "lora",
-        "rename_to": "paimomi.safetensors",
+        "rename_to": "pussy.safetensors",
         "sha256": "379C267CA9E6021BDE9763C74A76117335181B189EDBCD06E29ACF1D16F6AF10"
+    },
+    {
+        "source": "civitai",
+        "target": "2541538", 
+        "file": "kemona_lora.safetensors",
+        "type": "lora",
+        "rename_to": "ケモナー.safetensors",
+        "sha256": "B5AE5A7FBDF1459C24C5478C394DC97BBB24D20737B93B5F78851D900AC1AC20"
     },
     {
         "source": "civitai",
