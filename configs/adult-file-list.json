@@ -32,7 +32,7 @@
         "file": "blowjob_lora.safetensors",
         "type": "lora",
         "rename_to": "blowjob.safetensors",
-        "sha256": ""
+        "sha256": "267AD5C0CB6AE9C6111DFB2D7CBDE28C31CEA7A5161F5BD0683ECA688B1D626C"
     },
     {
         "source": "civitai",
@@ -48,7 +48,7 @@
         "file": "bukkake_lora.safetensors",
         "type": "lora",
         "rename_to": "bukkake.safetensors",
-        "sha256": ""
+        "sha256": "9E4269BA02BDCEB0DC0F0F3F35EB84DB6892B964FD453F370517C05340B34429"
     },
     {
         "source": "civitai",
