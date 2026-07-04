@@ -16,7 +16,7 @@
         "file": "paizuri_lora.safetensors",
         "type": "lora",
         "rename_to": "paizuri.safetensors",
-        "sha256": ""
+        "sha256": "B6B173F4A891B278AAD6957DD7962B8CA380BDF67B130DD465C3318257EBB781"
     },
     {
         "source": "civitai",
@@ -36,6 +36,14 @@
     },
     {
         "source": "civitai",
+        "target": "2195559", 
+        "file": "deepthroat_lora.safetensors",
+        "type": "lora",
+        "rename_to": "deepthroat.safetensors",
+        "sha256": "D007EAD8F82AC40E946D919361D658095916FE5091F9861AE82ACFD9A9275624"
+    },
+    {
+        "source": "civitai",
         "target": "1602715", 
         "file": "bukkake_lora.safetensors",
         "type": "lora",
@@ -49,6 +57,14 @@
         "type": "lora",
         "rename_to": "paimomi.safetensors",
         "sha256": ""
+    },
+    {
+        "source": "civitai",
+        "target": "2210320", 
+        "file": "bouncing_boobs_lora.safetensors",
+        "type": "lora",
+        "rename_to": "bouncing_boobs.safetensors",
+        "sha256": "B51A03321BFEA9AB506DB2F167A975AF77D51EE34E263B1F664F5147D5B6EF23"
     },
     {
         "source": "civitai",
