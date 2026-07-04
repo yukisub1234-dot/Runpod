@@ -24,6 +24,12 @@
       "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
       "file": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
       "type": "clip"
+    },
+    {
+      "source": "url",
+      "url": "https://github.com/Granddyser/wan-video-extender",
+      "file": "latent_continuation_workflow.json",
+      "type": "workflow"
     }
   ]
 }
