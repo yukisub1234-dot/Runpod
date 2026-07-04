@@ -51,6 +51,14 @@
         "sha256": ""
     },
     {
+        "source": "civitai",
+        "target": "2012120", 
+        "file": "pussy_lora.safetensors",
+        "type": "lora",
+        "rename_to": "paimomi.safetensors",
+        "sha256": "379C267CA9E6021BDE9763C74A76117335181B189EDBCD06E29ACF1D16F6AF10"
+    },
+    {
         "source": "hf",
         "target": "NSFW-API/NSFW-Wan-UMT5-XXL",
         "file": "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
