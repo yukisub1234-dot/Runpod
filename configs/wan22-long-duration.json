@@ -49,6 +49,11 @@
       "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
       "file": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
       "type": "clip"
+    },{
+      "source": "url",
+      "url": "https://github.com/user-attachments/files/24359648/wan22_SVI_Pro_native_example_KJ.json",
+      "file": "svi_workflow.json",
+      "type": "workflow"
     }
   ]
 }
