@@ -11,6 +11,7 @@ echo "HF_TOKEN: ${HF_TOKEN:+設定済み}"
 
 # 実行
 python3 download_all.py --config wan22-lightweight-fast --workers 2
+python3 download_all.py --config my-workflows.json --workers 2
 ```
 
 起動後JupyterLabのターミナルで以下を貼り付け（個別追加）
