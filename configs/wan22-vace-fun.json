@@ -1,0 +1,65 @@
+{
+  "_description": "アップロードされたワークフロー(wan22-vace-fun.json)専用プリセット。Wan2.2 T2V-A14B(Kijai/KJ形式fp8)にFun-VACEモジュール(bf16)をDiffusionModelLoaderKJのextra_state_dictで動的マージし、LightX2Vディスティルロラで高速化する構成。ComfyUI-KJNodes(このテンプレートにプリインストール済み)が必須",
+  "_workflow": {
+    "note": "アップロードされたワークフロー本体はユーザー環境に既にあるため、このプリセットにはワークフローJSON自体は含めていません(モデルのみ)",
+    "source_file": "wan22-vace-fun.json(アップロード済み)"
+  },
+  "models": [
+    {
+      "_comment": "T2V-A14B HIGH noise (Kijai/KJ形式)。models/diffusion_models/wan2.2/ 配下に配置",
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy_fp8_scaled",
+      "file": "T2V/Wan2_2-T2V-A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "rename_to": "wan2.2/Wan2_2-T2V-A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "type": "diffusion",
+      "sha256": "15384a1da9b5aa463464ba50a596b84f6c0929bfb72ec47df6bb48cb2e0b6f0c"
+    },
+    {
+      "_comment": "T2V-A14B LOW noise (Kijai/KJ形式)。models/diffusion_models/wan2.2/ 配下に配置",
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy_fp8_scaled",
+      "file": "T2V/Wan2_2-T2V-A14B-LOW_fp8_e4m3fn_scaled_KJ.safetensors",
+      "rename_to": "wan2.2/Wan2_2-T2V-A14B-LOW_fp8_e4m3fn_scaled_KJ.safetensors",
+      "type": "diffusion"
+    },
+    {
+      "_comment": "Fun-VACEモジュール HIGH(bf16)。DiffusionModelLoaderKJのextra_state_dictとして動的マージされる。models/diffusion_models/wan/ 配下に配置",
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy",
+      "file": "Fun/VACE/Wan2_2_Fun_VACE_module_A14B_HIGH_bf16.safetensors",
+      "rename_to": "wan/Wan2_2_Fun_VACE_module_A14B_HIGH_bf16.safetensors",
+      "type": "diffusion",
+      "sha256": "5ab3baf65fa188ee1af9ce1207a8999af300911fb355d1a88601002e036a6d10"
+    },
+    {
+      "_comment": "Fun-VACEモジュール LOW(bf16)。models/diffusion_models/wan/ 配下に配置",
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy",
+      "file": "Fun/VACE/Wan2_2_Fun_VACE_module_A14B_LOW_bf16.safetensors",
+      "rename_to": "wan/Wan2_2_Fun_VACE_module_A14B_LOW_bf16.safetensors",
+      "type": "diffusion"
+    },
+    {
+      "_comment": "LightX2V 4-stepディスティルLoRA(High/Low両方のブランチに同じファイルを適用)。models/loras/Wan/ 配下に配置",
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy",
+      "file": "Lightx2v/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
+      "rename_to": "Wan/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
+      "type": "lora"
+    },
+    {
+      "_comment": "テキストエンコーダー(fp16版。このワークフローのCLIPLoaderウィジェット値がumt5_xxl_fp16.safetensorsのため合わせている。fp8_scaled版より約1.7倍容量が大きい点に注意)",
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/text_encoders/umt5_xxl_fp16.safetensors",
+      "type": "clip",
+      "sha256": "7b8850f1961e1cf8a77cca4c964a358d303f490833c6c087d0cff4b2f99db2af"
+    },
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.1_ComfyUI_repackaged",
+      "file": "split_files/vae/wan_2.1_vae.safetensors",
+      "type": "vae"
+    }
+  ]
+}
