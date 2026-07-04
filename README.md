@@ -81,13 +81,23 @@ RunPod公式テンプレート **「ComfyUI - CUDA 13」**(`github.com/runpod-wo
 |---|---|---|---|
 | `wan22-lightweight-fast` | TI2V-5B(単一モデル・fp16) | T2V/I2V両対応、720p@24fps。速度優先 | 約24GB |
 | `wan22-high-quality` | T2V-A14B + I2V-A14B(MoE高/低ノイズ・fp8_scaled) | 映画的な質感・複雑な動きに強いMoE構成 | 約24GB(fp8) |
-| `wan22-long-duration` | I2V-A14B(Kijai/KJ形式fp8) + SVI v2.0 Pro LoRA + LightX2V | セグメントを連結し60秒程度までのシームレスな動画 | 約24GB |
+| `wan22-long-duration` | I2V-A14B(Kijai/KJ形式fp8) + SVI v2.0 Pro LoRA + LightX2V | セグメントを連結し60秒程度までのシームレスな動画(SVI方式) | 約24GB |
+| `wan22-latent-continuation` | Fun VACE-A14B(fp8_scaled) | 潜在空間(Latent)を直接引き継いで動画の続きを生成。ネイティブノードのみ、追加LoRA不要 | 約24GB |
 | `wan22-speed-boost-loras` | LightX2V 4-stepディスティルLoRA(T2V/I2V, High/Low) | `wan22-high-quality`に重ねて3〜4倍高速化するアドオン | 数百MB |
 
 **注意点**:
 - `wan22-high-quality` と `wan22-long-duration` はMoE構成(High-Noise/Low-Noiseの2モデル切替)のため、KSampler(Advanced)を2回使うワークフローが必要です(公式テンプレート「Wan2.2 14B T2V/I2V」で対応)。
 - `wan22-long-duration` のdiffusionモデルは**ネイティブComfyUI形式ではなく**、`ComfyUI-KJNodes`の`DiffusionModelLoaderKJ`ノード専用形式(Kijaiリポジトリ配布)です。ノード自体はこのテンプレートにプリインストール済みです。
 - fp8_scaledはfp16よりVRAM消費を抑えつつ品質劣化を最小化した形式です。さらに高品質を求める場合はfp16版に差し替え可能ですが、必要VRAMが大幅に増えます(A14Bのfp16は80GB級GPU相当)。
+
+### 長尺動画の2つの方式の違い
+
+| 方式 | プリセット | 仕組み | 長所 | 短所 |
+|---|---|---|---|---|
+| SVI(画像アンカー方式) | `wan22-long-duration` | セグメント末尾をVAEデコードした画像を次のI2V入力に使う | 導入実績が多く安定 | VAEデコード/再エンコードを繰り返すため微小な劣化が蓄積しうる |
+| Latent直接結合方式 | `wan22-latent-continuation` | セグメント末尾の潜在表現(latent)をVAEを介さず直接次のコンテキストに渡す | 圧縮劣化が起きにくい。追加LoRA不要 | VACEモデル自体の学習傾向に品質が左右される。ワークフロー構築がやや複雑 |
+
+どちらもComfyUI標準の`TrimVideoLatent`ノードで潜在系列の長さを調整しながら複数セグメントを繋ぎます。まずは`wan22-latent-continuation`(ネイティブノードのみ)を試し、動きの一貫性が物足りない場合に`wan22-long-duration`(SVI)を試す、という順番がおすすめです。
 
 ## 高速化のオプション(品質への影響で2段階)
 
@@ -107,26 +117,52 @@ RunPod公式テンプレート **「ComfyUI - CUDA 13」**(`github.com/runpod-wo
 
 `wan22-speed-boost-loras` で導入できます。20ステップ→6ステップ程度まで削減し3〜4倍高速化しますが、ComfyOrg公式ブログでも「動きのダイナミズムがわずかに低下する場合がある」と明言されているとおり、完全な無劣化ではありません。まず①を試し、それでも遅い場合にLoRAの強度を1.0→0.7程度に下げながら試すのがおすすめです。
 
-## SVI v2.0 Pro ワークフロー(長尺動画生成)の入手
+## ワークフロー(JSON)の一括ダウンロード
 
-`wan22-long-duration` のモデルに対応する公式サンプルワークフローは、KJ(Kijai)氏がGitHub上で配布しています。ライセンスの都合上ここには埋め込めないため、以下から直接取得してください。
+`type: "workflow"` と `source: "url"` を使うと、Civitai/HF以外の任意のURL(GitHub添付ファイル、raw.githubusercontent.com など)から直接ワークフローJSONをダウンロードし、ComfyUIの `user/default/workflows/` に配置できます。モデルと違い数十KB〜数MB程度なので、通常のモデル用サイズチェックとは別の緩い基準(かつJSONとして正しくパースできるか)で検証されます。
+
+`configs/*.json` に含める場合:
+
+```json
+{
+  "source": "url",
+  "url": "https://github.com/user-attachments/files/xxxxxxx/example_workflow.json",
+  "file": "example_workflow.json",
+  "type": "workflow"
+}
+```
+
+コマンド一発(単体追加モード)でも可能です:
+
+```bash
+python3 download_all.py --add \
+  --source url \
+  --url "https://github.com/user-attachments/files/24359648/wan22_SVI_Pro_native_example_KJ.json" \
+  --file wan22_svi_pro.json \
+  --type workflow
+```
+
+### SVI v2.0 Pro ワークフロー(長尺動画生成)の入手例
+
+`wan22-long-duration` のモデルに対応する公式サンプルワークフローは、KJ(Kijai)氏がGitHub上で配布しています。上記のworkflow type経由で直接ダウンロードできます。
 
 - ワークフロー本体(JSON): https://github.com/user-attachments/files/24359648/wan22_SVI_Pro_native_example_KJ.json
 - より高機能な派生版(セグメントごとのLoRA切替・保存/再開対応、v3.0): https://civitai.com/models/2368359/long-videos-with-full-control-wan-22-i2v-svi-2-pro-individual-lora-multiple-reference-images-and-more
 
-取得したJSONファイルをComfyUIの画面にドラッグ&ドロップすれば読み込まれます。不足しているカスタムノードが赤く表示された場合は、ComfyUI-Managerの「Install Missing Custom Nodes」で解決してください。
+不足しているカスタムノードが赤く表示された場合は、ComfyUI-Managerの「Install Missing Custom Nodes」で解決してください。
 
-ダウンロードしたファイルは種類に応じて `COMFYUI_ROOT/models/` 配下の各サブディレクトリに自動配置されます。
+ダウンロードしたファイルは種類に応じて `COMFYUI_ROOT` 配下の各サブディレクトリに自動配置されます。
 
-| type          | 配置先                          |
-|---------------|----------------------------------|
-| `checkpoint`  | `models/checkpoints`             |
-| `lora`        | `models/loras`                   |
-| `vae`         | `models/vae`                     |
-| `clip`        | `models/text_encoders`           |
-| `diffusion`   | `models/diffusion_models`        |
-| `upscale`     | `models/upscale_models`          |
-| `controlnet`  | `models/controlnet`              |
+| type          | 配置先                              |
+|---------------|--------------------------------------|
+| `checkpoint`  | `models/checkpoints`                 |
+| `lora`        | `models/loras`                       |
+| `vae`         | `models/vae`                         |
+| `clip`        | `models/text_encoders`               |
+| `diffusion`   | `models/diffusion_models`            |
+| `upscale`     | `models/upscale_models`              |
+| `controlnet`  | `models/controlnet`                  |
+| `workflow`    | `user/default/workflows`             |
 
 ## セットアップ
 
@@ -221,15 +257,23 @@ python3 download_all.py --add \
   --target Comfy-Org/Wan_2.2_ComfyUI_Repackaged \
   --file split_files/diffusion_models/wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors \
   --type diffusion
+
+# 任意のURLからワークフローJSONを1個追加
+python3 download_all.py --add \
+  --source url \
+  --url "https://github.com/user-attachments/files/24359648/wan22_SVI_Pro_native_example_KJ.json" \
+  --file wan22_svi_pro.json \
+  --type workflow
 ```
 
 | オプション      | 必須 | 説明                                                   |
 |-----------------|------|--------------------------------------------------------|
 | `--add`         | ✅   | 単体ダウンロードモードを有効化                          |
-| `--source`      | ✅   | `civitai` または `hf`                                  |
-| `--target`      | ✅   | CivitaiのモデルID、またはHFのリポジトリ名                |
+| `--source`      | ✅   | `civitai` / `hf` / `url`(任意の直リンク)                |
+| `--target`      | ✅※  | CivitaiのモデルID、またはHFのリポジトリ名(`--source url`では不要) |
+| `--url`         | ✅※  | ダウンロード元URL(`--source url` の場合のみ必須)        |
 | `--file`        | ✅   | ファイル名(HFの場合はリポジトリ内パス)                  |
-| `--type`        | 任意 | 保存先タイプ(デフォルト: `checkpoint`)                  |
+| `--type`        | 任意 | 保存先タイプ(デフォルト: `checkpoint`。`workflow`も指定可) |
 | `--rename-to`   | 任意 | 保存後のリネーム先ファイル名                             |
 | `--sha256`      | 任意 | 整合性検証用のハッシュ値                                 |
 
@@ -288,8 +332,8 @@ print("HF_TOKEN:", "設定済み" if os.environ.get("HF_TOKEN") else "未設定"
 ```
 
 ```python
-!python download_all.py --list
-!python download_all.py --config wan22-lightweight-fast --workers 2
+!python3 download_all.py --list
+!python3 download_all.py --config wan22-lightweight-fast --workers 2
 ```
 
 ## 出力例
