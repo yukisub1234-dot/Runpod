@@ -1,8 +1,8 @@
 {
   "id": "bf9818d6-c8d3-46ad-9492-3ab86b912181",
   "revision": 0,
-  "last_node_id": 176,
-  "last_link_id": 258,
+  "last_node_id": 180,
+  "last_link_id": 262,
   "nodes": [
     {
       "id": 7,
@@ -115,124 +115,6 @@
       "bgcolor": "#29699c"
     },
     {
-      "id": 11,
-      "type": "GetNode",
-      "pos": [
-        24.62255096435547,
-        1103.78076171875
-      ],
-      "size": [
-        210,
-        58
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "FLOAT",
-          "nameLocked": null,
-          "removable": null,
-          "shape": null,
-          "type": "FLOAT",
-          "pos": null,
-          "slot_index": null,
-          "links": [
-            132
-          ]
-        }
-      ],
-      "title": "Get_sampling_shift",
-      "properties": {
-        "Node name for S&R": "GetNode",
-        "aux_id": "kijai/ComfyUI-KJNodes"
-      },
-      "widgets_values": [
-        "sampling_shift"
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 20,
-      "type": "ModelSamplingSD3",
-      "pos": [
-        241.28651428222656,
-        1050.340576171875
-      ],
-      "size": [
-        210,
-        58
-      ],
-      "flags": {},
-      "order": 85,
-      "mode": 0,
-      "inputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "model",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "link": 11
-        },
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "shift",
-          "nameLocked": null,
-          "removable": null,
-          "type": "FLOAT",
-          "widget": {
-            "name": "shift"
-          },
-          "link": 132
-        }
-      ],
-      "outputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "MODEL",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "slot_index": 0,
-          "links": [
-            249
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.3.45",
-        "Node name for S&R": "ModelSamplingSD3"
-      },
-      "widgets_values": [
-        8
-      ]
-    },
-    {
       "id": 21,
       "type": "GetNode",
       "pos": [
@@ -246,7 +128,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -293,7 +175,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -338,7 +220,7 @@
         60.4569206237793
       ],
       "flags": {},
-      "order": 4,
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -385,7 +267,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -432,7 +314,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 67,
+      "order": 65,
       "mode": 0,
       "inputs": [
         {
@@ -493,7 +375,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 68,
+      "order": 66,
       "mode": 0,
       "inputs": [
         {
@@ -613,7 +495,7 @@
         58
       ],
       "flags": {},
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -780,7 +662,7 @@
         58
       ],
       "flags": {},
-      "order": 7,
+      "order": 6,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -827,7 +709,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -872,7 +754,7 @@
         58
       ],
       "flags": {},
-      "order": 9,
+      "order": 8,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -919,7 +801,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -966,7 +848,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 78,
+      "order": 81,
       "mode": 0,
       "inputs": [
         {
@@ -1027,7 +909,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1134,63 +1016,6 @@
       ]
     },
     {
-      "id": 66,
-      "type": "PathchSageAttentionKJ",
-      "pos": [
-        201.99903869628906,
-        906.7058715820312
-      ],
-      "size": [
-        270,
-        82
-      ],
-      "flags": {},
-      "order": 77,
-      "mode": 0,
-      "inputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "model",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "link": 131
-        }
-      ],
-      "outputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "MODEL",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "slot_index": null,
-          "links": [
-            11
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfyui-kjnodes",
-        "ver": "1.1.3",
-        "Node name for S&R": "PathchSageAttentionKJ"
-      },
-      "widgets_values": [
-        "auto",
-        false
-      ]
-    },
-    {
       "id": 73,
       "type": "RMBG",
       "pos": [
@@ -1202,7 +1027,7 @@
         302
       ],
       "flags": {},
-      "order": 72,
+      "order": 75,
       "mode": 0,
       "inputs": [
         {
@@ -1299,7 +1124,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 58,
+      "order": 68,
       "mode": 0,
       "inputs": [
         {
@@ -1358,7 +1183,7 @@
         130
       ],
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1468,7 +1293,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 13,
+      "order": 12,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1766,53 +1591,6 @@
       "bgcolor": "#335"
     },
     {
-      "id": 110,
-      "type": "GetNode",
-      "pos": [
-        69.21227264404297,
-        481.510009765625
-      ],
-      "size": [
-        210,
-        60
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 14,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "FLOAT",
-          "nameLocked": null,
-          "removable": null,
-          "shape": null,
-          "type": "FLOAT",
-          "pos": null,
-          "slot_index": null,
-          "links": [
-            142
-          ]
-        }
-      ],
-      "title": "Get_sampling_shift",
-      "properties": {
-        "Node name for S&R": "GetNode",
-        "aux_id": "kijai/ComfyUI-KJNodes"
-      },
-      "widgets_values": [
-        "sampling_shift"
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
       "id": 111,
       "type": "Note",
       "pos": [
@@ -1824,7 +1602,7 @@
         119.20219421386719
       ],
       "flags": {},
-      "order": 15,
+      "order": 13,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -1847,7 +1625,7 @@
         336.0000305175781
       ],
       "flags": {},
-      "order": 59,
+      "order": 69,
       "mode": 0,
       "inputs": [
         {
@@ -1985,63 +1763,6 @@
       ]
     },
     {
-      "id": 61,
-      "type": "LoraLoaderModelOnly",
-      "pos": [
-        129.32049560546875,
-        758.3502807617188
-      ],
-      "size": [
-        357.48138427734375,
-        82
-      ],
-      "flags": {},
-      "order": 71,
-      "mode": 0,
-      "inputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "model",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "link": 164
-        }
-      ],
-      "outputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "MODEL",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "slot_index": null,
-          "links": [
-            131
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.3.46",
-        "Node name for S&R": "LoraLoaderModelOnly"
-      },
-      "widgets_values": [
-        "Wan/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
-        0.6
-      ]
-    },
-    {
       "id": 116,
       "type": "DiffusionModelSelector",
       "pos": [
@@ -2053,7 +1774,7 @@
         58.98497009277344
       ],
       "flags": {},
-      "order": 16,
+      "order": 14,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -2095,7 +1816,7 @@
         58
       ],
       "flags": {},
-      "order": 17,
+      "order": 15,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -2137,7 +1858,7 @@
         254
       ],
       "flags": {},
-      "order": 73,
+      "order": 72,
       "mode": 0,
       "inputs": [
         {
@@ -2351,68 +2072,6 @@
       ]
     },
     {
-      "id": 91,
-      "type": "DiffusionModelLoaderKJ",
-      "pos": [
-        -398.8918762207031,
-        820.8617553710938
-      ],
-      "size": [
-        483.1328430175781,
-        178
-      ],
-      "flags": {},
-      "order": 57,
-      "mode": 0,
-      "inputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "extra_state_dict",
-          "nameLocked": null,
-          "removable": null,
-          "shape": 7,
-          "type": "STRING",
-          "pos": null,
-          "link": 165
-        }
-      ],
-      "outputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "MODEL",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "slot_index": null,
-          "links": [
-            164
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfyui-kjnodes",
-        "ver": "1.1.4",
-        "Node name for S&R": "DiffusionModelLoaderKJ"
-      },
-      "widgets_values": [
-        "wan2.2/Wan2_2-T2V-A14B-LOW_fp8_e4m3fn_scaled_KJ.safetensors",
-        "default",
-        "default",
-        false,
-        "disabled",
-        false
-      ]
-    },
-    {
       "id": 117,
       "type": "DiffusionModelLoaderKJ",
       "pos": [
@@ -2475,64 +2134,6 @@
       ]
     },
     {
-      "id": 118,
-      "type": "LoadImage",
-      "pos": [
-        -1283.6267052200146,
-        313.741038050627
-      ],
-      "size": [
-        284,
-        314
-      ],
-      "flags": {},
-      "order": 18,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "IMAGE",
-          "nameLocked": null,
-          "removable": null,
-          "type": "IMAGE",
-          "pos": null,
-          "slot_index": null,
-          "links": [
-            169,
-            170
-          ]
-        },
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "MASK",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MASK",
-          "pos": null,
-          "slot_index": null,
-          "links": null
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.3.57",
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "cQY9FHsOBT8LOXKnSgNSVthEjH54-Pvk0k5p5YS4moM.webp",
-        "image"
-      ]
-    },
-    {
       "id": 119,
       "type": "GetNode",
       "pos": [
@@ -2546,7 +2147,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 19,
+      "order": 16,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -2595,7 +2196,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 20,
+      "order": 17,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -2642,7 +2243,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 21,
+      "order": 18,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -2689,7 +2290,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 22,
+      "order": 19,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -2736,7 +2337,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 23,
+      "order": 20,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -2856,7 +2457,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 24,
+      "order": 21,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -3165,7 +2766,7 @@
         254
       ],
       "flags": {},
-      "order": 74,
+      "order": 73,
       "mode": 0,
       "inputs": [
         {
@@ -3390,7 +2991,7 @@
         334
       ],
       "flags": {},
-      "order": 81,
+      "order": 79,
       "mode": 0,
       "inputs": [
         {
@@ -3537,7 +3138,7 @@
         138.8924560546875
       ],
       "flags": {},
-      "order": 64,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -3598,7 +3199,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 25,
+      "order": 22,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -3647,7 +3248,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 26,
+      "order": 23,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -3694,7 +3295,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 27,
+      "order": 24,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -3741,7 +3342,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 28,
+      "order": 25,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -3788,7 +3389,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 29,
+      "order": 26,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -3908,7 +3509,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 30,
+      "order": 27,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4217,7 +3818,7 @@
         334
       ],
       "flags": {},
-      "order": 82,
+      "order": 80,
       "mode": 0,
       "inputs": [
         {
@@ -4364,7 +3965,7 @@
         253.22743225097656
       ],
       "flags": {},
-      "order": 65,
+      "order": 63,
       "mode": 0,
       "inputs": [
         {
@@ -4423,7 +4024,7 @@
         138.8924560546875
       ],
       "flags": {},
-      "order": 66,
+      "order": 64,
       "mode": 0,
       "inputs": [
         {
@@ -4685,7 +4286,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 31,
+      "order": 28,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -4958,7 +4559,7 @@
         59.98149108886719
       ],
       "flags": {},
-      "order": 32,
+      "order": 29,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5007,7 +4608,7 @@
         60
       ],
       "flags": {},
-      "order": 60,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -5047,7 +4648,7 @@
         60
       ],
       "flags": {},
-      "order": 33,
+      "order": 30,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5083,7 +4684,7 @@
         60
       ],
       "flags": {},
-      "order": 34,
+      "order": 31,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5119,7 +4720,7 @@
         58
       ],
       "flags": {},
-      "order": 35,
+      "order": 32,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5155,7 +4756,7 @@
         60
       ],
       "flags": {},
-      "order": 69,
+      "order": 67,
       "mode": 0,
       "inputs": [
         {
@@ -5195,7 +4796,7 @@
         60
       ],
       "flags": {},
-      "order": 36,
+      "order": 33,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5231,7 +4832,7 @@
         58
       ],
       "flags": {},
-      "order": 37,
+      "order": 34,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5267,7 +4868,7 @@
         58
       ],
       "flags": {},
-      "order": 38,
+      "order": 35,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5292,78 +4893,6 @@
       "bgcolor": "#653"
     },
     {
-      "id": 57,
-      "type": "ModelSamplingSD3",
-      "pos": [
-        226.72910663018737,
-        426.0389800629835
-      ],
-      "size": [
-        210,
-        60
-      ],
-      "flags": {},
-      "order": 76,
-      "mode": 0,
-      "inputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "model",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "link": 137
-        },
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "shift",
-          "nameLocked": null,
-          "removable": null,
-          "type": "FLOAT",
-          "widget": {
-            "name": "shift"
-          },
-          "link": 142
-        }
-      ],
-      "outputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "MODEL",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "slot_index": 0,
-          "links": [
-            138,
-            246
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.3.45",
-        "Node name for S&R": "ModelSamplingSD3"
-      },
-      "widgets_values": [
-        8.000000000000002
-      ]
-    },
-    {
       "id": 108,
       "type": "KSamplerAdvanced",
       "pos": [
@@ -5375,7 +4904,7 @@
         334
       ],
       "flags": {},
-      "order": 80,
+      "order": 78,
       "mode": 0,
       "inputs": [
         {
@@ -5511,126 +5040,6 @@
       "bgcolor": "#335"
     },
     {
-      "id": 165,
-      "type": "SetNode",
-      "pos": [
-        264.7221073056961,
-        128.75671817018687
-      ],
-      "size": [
-        210,
-        60
-      ],
-      "flags": {},
-      "order": 84,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "link": 246
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": null
-        }
-      ],
-      "title": "Set_モデル1",
-      "properties": {
-        "Node name for S&R": "SetNode",
-        "aux_id": "kijai/ComfyUI-KJNodes",
-        "previousName": "モデル1"
-      },
-      "widgets_values": [
-        "モデル1"
-      ],
-      "color": "#223",
-      "bgcolor": "#335"
-    },
-    {
-      "id": 166,
-      "type": "SetNode",
-      "pos": [
-        522.4451591995459,
-        560.3146367852984
-      ],
-      "size": [
-        210,
-        58
-      ],
-      "flags": {},
-      "order": 89,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "link": 248
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": null
-        }
-      ],
-      "title": "Set_モデル2",
-      "properties": {
-        "Node name for S&R": "SetNode",
-        "aux_id": "kijai/ComfyUI-KJNodes",
-        "previousName": "モデル2"
-      },
-      "widgets_values": [
-        "モデル2"
-      ],
-      "color": "#223",
-      "bgcolor": "#335"
-    },
-    {
-      "id": 167,
-      "type": "SetNode",
-      "pos": [
-        205.07523870976078,
-        1231.9969539644271
-      ],
-      "size": [
-        210,
-        58
-      ],
-      "flags": {},
-      "order": 90,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "link": 249
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": null
-        }
-      ],
-      "title": "Set_モデル3",
-      "properties": {
-        "Node name for S&R": "SetNode",
-        "aux_id": "kijai/ComfyUI-KJNodes",
-        "previousName": "モデル3"
-      },
-      "widgets_values": [
-        "モデル3"
-      ],
-      "color": "#223",
-      "bgcolor": "#335"
-    },
-    {
       "id": 169,
       "type": "GetNode",
       "pos": [
@@ -5642,7 +5051,7 @@
         58
       ],
       "flags": {},
-      "order": 39,
+      "order": 36,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5677,7 +5086,7 @@
         58
       ],
       "flags": {},
-      "order": 40,
+      "order": 37,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5712,7 +5121,7 @@
         60
       ],
       "flags": {},
-      "order": 41,
+      "order": 38,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5747,7 +5156,7 @@
         58
       ],
       "flags": {},
-      "order": 42,
+      "order": 39,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5782,7 +5191,7 @@
         58
       ],
       "flags": {},
-      "order": 43,
+      "order": 40,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5817,7 +5226,7 @@
         58
       ],
       "flags": {},
-      "order": 44,
+      "order": 41,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5852,7 +5261,7 @@
         58
       ],
       "flags": {},
-      "order": 45,
+      "order": 42,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5887,7 +5296,7 @@
         58
       ],
       "flags": {},
-      "order": 46,
+      "order": 43,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5922,7 +5331,7 @@
         58
       ],
       "flags": {},
-      "order": 47,
+      "order": 44,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5957,7 +5366,7 @@
         408.6483154296875
       ],
       "flags": {},
-      "order": 79,
+      "order": 82,
       "mode": 0,
       "inputs": [
         {
@@ -5989,63 +5398,6 @@
       "widgets_values": []
     },
     {
-      "id": 8,
-      "type": "PathchSageAttentionKJ",
-      "pos": [
-        135.72844195229746,
-        270.84537032879564
-      ],
-      "size": [
-        270,
-        82
-      ],
-      "flags": {},
-      "order": 70,
-      "mode": 0,
-      "inputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "model",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "link": 167
-        }
-      ],
-      "outputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "MODEL",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "slot_index": null,
-          "links": [
-            137
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfyui-kjnodes",
-        "ver": "1.1.3",
-        "Node name for S&R": "PathchSageAttentionKJ"
-      },
-      "widgets_values": [
-        "auto",
-        false
-      ]
-    },
-    {
       "id": 149,
       "type": "WanVaceToVideo",
       "pos": [
@@ -6057,7 +5409,7 @@
         254
       ],
       "flags": {},
-      "order": 75,
+      "order": 74,
       "mode": 0,
       "inputs": [
         {
@@ -6282,7 +5634,7 @@
         58
       ],
       "flags": {},
-      "order": 48,
+      "order": 45,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -6327,7 +5679,7 @@
         58
       ],
       "flags": {},
-      "order": 49,
+      "order": 46,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -6372,7 +5724,7 @@
         138.8924560546875
       ],
       "flags": {},
-      "order": 62,
+      "order": 60,
       "mode": 0,
       "inputs": [
         {
@@ -6431,7 +5783,7 @@
         253.22743225097656
       ],
       "flags": {},
-      "order": 61,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -6490,7 +5842,7 @@
         253.22743225097656
       ],
       "flags": {},
-      "order": 63,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -6549,7 +5901,7 @@
         106
       ],
       "flags": {},
-      "order": 50,
+      "order": 47,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -6589,18 +5941,58 @@
       ]
     },
     {
-      "id": 60,
-      "type": "LoraLoaderModelOnly",
+      "id": 167,
+      "type": "SetNode",
       "pos": [
-        133.80994799256646,
-        595.4335040315892
+        202.55195662573632,
+        1281.1998476891536
       ],
       "size": [
-        372.9408264160156,
-        82
+        210,
+        58
       ],
       "flags": {},
-      "order": 83,
+      "order": 90,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "link": 249
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": null
+        }
+      ],
+      "title": "Set_モデル3",
+      "properties": {
+        "Node name for S&R": "SetNode",
+        "aux_id": "kijai/ComfyUI-KJNodes",
+        "previousName": "モデル3"
+      },
+      "widgets_values": [
+        "モデル3"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 20,
+      "type": "ModelSamplingSD3",
+      "pos": [
+        224.88551762286113,
+        1146.2230815373036
+      ],
+      "size": [
+        210,
+        58
+      ],
+      "flags": {},
+      "order": 85,
       "mode": 0,
       "inputs": [
         {
@@ -6614,7 +6006,125 @@
           "removable": null,
           "type": "MODEL",
           "pos": null,
-          "link": 138
+          "link": 11
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "shift",
+          "nameLocked": null,
+          "removable": null,
+          "type": "FLOAT",
+          "widget": {
+            "name": "shift"
+          },
+          "link": 132
+        }
+      ],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "MODEL",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MODEL",
+          "pos": null,
+          "slot_index": 0,
+          "links": [
+            249
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.45",
+        "Node name for S&R": "ModelSamplingSD3"
+      },
+      "widgets_values": [
+        8
+      ]
+    },
+    {
+      "id": 11,
+      "type": "GetNode",
+      "pos": [
+        3.175182643680345,
+        1195.8784883381968
+      ],
+      "size": [
+        210,
+        58
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 48,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "FLOAT",
+          "nameLocked": null,
+          "removable": null,
+          "shape": null,
+          "type": "FLOAT",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            132
+          ]
+        }
+      ],
+      "title": "Get_sampling_shift",
+      "properties": {
+        "Node name for S&R": "GetNode",
+        "aux_id": "kijai/ComfyUI-KJNodes"
+      },
+      "widgets_values": [
+        "sampling_shift"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 66,
+      "type": "PathchSageAttentionKJ",
+      "pos": [
+        166.6738595469034,
+        984.9258354994521
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 77,
+      "mode": 0,
+      "inputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "model",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MODEL",
+          "pos": null,
+          "link": 261
         }
       ],
       "outputs": [
@@ -6631,18 +6141,528 @@
           "pos": null,
           "slot_index": null,
           "links": [
-            248
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "1.1.3",
+        "Node name for S&R": "PathchSageAttentionKJ"
+      },
+      "widgets_values": [
+        "auto",
+        false
+      ]
+    },
+    {
+      "id": 166,
+      "type": "SetNode",
+      "pos": [
+        219.08484928621743,
+        712.2815458430332
+      ],
+      "size": [
+        210,
+        58
+      ],
+      "flags": {},
+      "order": 89,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "link": 259
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": null
+        }
+      ],
+      "title": "Set_モデル2",
+      "properties": {
+        "Node name for S&R": "SetNode",
+        "aux_id": "kijai/ComfyUI-KJNodes",
+        "previousName": "モデル2"
+      },
+      "widgets_values": [
+        "モデル2"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 110,
+      "type": "GetNode",
+      "pos": [
+        10.440069890870049,
+        463.03873963753745
+      ],
+      "size": [
+        210,
+        60
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 49,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "FLOAT",
+          "nameLocked": null,
+          "removable": null,
+          "shape": null,
+          "type": "FLOAT",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            142
+          ]
+        }
+      ],
+      "title": "Get_sampling_shift",
+      "properties": {
+        "Node name for S&R": "GetNode",
+        "aux_id": "kijai/ComfyUI-KJNodes"
+      },
+      "widgets_values": [
+        "sampling_shift"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 165,
+      "type": "SetNode",
+      "pos": [
+        415.85062867099793,
+        405.8256579924189
+      ],
+      "size": [
+        210,
+        60
+      ],
+      "flags": {},
+      "order": 83,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "link": 246
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": null
+        }
+      ],
+      "title": "Set_モデル1",
+      "properties": {
+        "Node name for S&R": "SetNode",
+        "aux_id": "kijai/ComfyUI-KJNodes",
+        "previousName": "モデル1"
+      },
+      "widgets_values": [
+        "モデル1"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 179,
+      "type": "Power Lora Loader (rgthree)",
+      "pos": [
+        123.04312802892582,
+        509.0358181379352
+      ],
+      "size": [
+        340.519921875,
+        142
+      ],
+      "flags": {},
+      "order": 84,
+      "mode": 0,
+      "inputs": [
+        {
+          "dir": 3,
+          "name": "model",
+          "type": "MODEL",
+          "link": 260
+        },
+        {
+          "dir": 3,
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "dir": 4,
+          "name": "MODEL",
+          "shape": 3,
+          "type": "MODEL",
+          "links": [
+            259
+          ]
+        },
+        {
+          "dir": 4,
+          "name": "CLIP",
+          "shape": 3,
+          "type": "CLIP",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "1.0.2606200020",
+        "Show Strengths": "Single Strength",
+        "Match": ""
+      },
+      "widgets_values": [
+        {},
+        {
+          "type": "PowerLoraLoaderHeaderWidget"
+        },
+        {
+          "on": true,
+          "lora": "Wan/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
+          "strength": 1,
+          "strengthTwo": null
+        },
+        {},
+        ""
+      ]
+    },
+    {
+      "id": 91,
+      "type": "DiffusionModelLoaderKJ",
+      "pos": [
+        -398.8918762207031,
+        820.8617553710938
+      ],
+      "size": [
+        483.1328430175781,
+        178
+      ],
+      "flags": {},
+      "order": 57,
+      "mode": 0,
+      "inputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "extra_state_dict",
+          "nameLocked": null,
+          "removable": null,
+          "shape": 7,
+          "type": "STRING",
+          "pos": null,
+          "link": 165
+        }
+      ],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "MODEL",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MODEL",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            262
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "1.1.4",
+        "Node name for S&R": "DiffusionModelLoaderKJ"
+      },
+      "widgets_values": [
+        "wan2.2/Wan2_2-T2V-A14B-LOW_fp8_e4m3fn_scaled_KJ.safetensors",
+        "default",
+        "default",
+        false,
+        "disabled",
+        false
+      ]
+    },
+    {
+      "id": 180,
+      "type": "Power Lora Loader (rgthree)",
+      "pos": [
+        117.23964180036069,
+        783.6573873834659
+      ],
+      "size": [
+        340.519921875,
+        142
+      ],
+      "flags": {},
+      "order": 71,
+      "mode": 0,
+      "inputs": [
+        {
+          "dir": 3,
+          "name": "model",
+          "type": "MODEL",
+          "link": 262
+        },
+        {
+          "dir": 3,
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "dir": 4,
+          "name": "MODEL",
+          "shape": 3,
+          "type": "MODEL",
+          "links": [
+            261
+          ]
+        },
+        {
+          "dir": 4,
+          "name": "CLIP",
+          "shape": 3,
+          "type": "CLIP",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "1.0.2606200020",
+        "Show Strengths": "Single Strength",
+        "Match": ""
+      },
+      "widgets_values": [
+        {},
+        {
+          "type": "PowerLoraLoaderHeaderWidget"
+        },
+        {
+          "on": true,
+          "lora": "Wan/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
+          "strength": 1,
+          "strengthTwo": null
+        },
+        {},
+        ""
+      ]
+    },
+    {
+      "id": 118,
+      "type": "LoadImage",
+      "pos": [
+        -1283.6267052200146,
+        313.741038050627
+      ],
+      "size": [
+        284,
+        314
+      ],
+      "flags": {},
+      "order": 50,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "IMAGE",
+          "nameLocked": null,
+          "removable": null,
+          "type": "IMAGE",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            169,
+            170
+          ]
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "MASK",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MASK",
+          "pos": null,
+          "slot_index": null,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.57",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "young-caucasian-woman-isolated-on-260nw-2078981464.webp",
+        "image"
+      ]
+    },
+    {
+      "id": 57,
+      "type": "ModelSamplingSD3",
+      "pos": [
+        171.54533220106885,
+        394.11659814282
+      ],
+      "size": [
+        210,
+        60
+      ],
+      "flags": {},
+      "order": 76,
+      "mode": 0,
+      "inputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "model",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MODEL",
+          "pos": null,
+          "link": 137
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "shift",
+          "nameLocked": null,
+          "removable": null,
+          "type": "FLOAT",
+          "widget": {
+            "name": "shift"
+          },
+          "link": 142
+        }
+      ],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "MODEL",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MODEL",
+          "pos": null,
+          "slot_index": 0,
+          "links": [
+            246,
+            260
           ]
         }
       ],
       "properties": {
         "cnr_id": "comfy-core",
-        "ver": "0.3.46",
-        "Node name for S&R": "LoraLoaderModelOnly"
+        "ver": "0.3.45",
+        "Node name for S&R": "ModelSamplingSD3"
       },
       "widgets_values": [
-        "Wan/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
-        0.6
+        8.000000000000002
+      ]
+    },
+    {
+      "id": 8,
+      "type": "PathchSageAttentionKJ",
+      "pos": [
+        137.85365073826517,
+        263.79518031599184
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 70,
+      "mode": 0,
+      "inputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "model",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MODEL",
+          "pos": null,
+          "link": 167
+        }
+      ],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "MODEL",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MODEL",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            137
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "1.1.3",
+        "Node name for S&R": "PathchSageAttentionKJ"
+      },
+      "widgets_values": [
+        "auto",
+        false
       ]
     }
   ],
@@ -6832,14 +6852,6 @@
       "INT"
     ],
     [
-      131,
-      61,
-      0,
-      66,
-      0,
-      "MODEL"
-    ],
-    [
       132,
       11,
       0,
@@ -6852,14 +6864,6 @@
       8,
       0,
       57,
-      0,
-      "MODEL"
-    ],
-    [
-      138,
-      57,
-      0,
-      60,
       0,
       "MODEL"
     ],
@@ -6966,14 +6970,6 @@
       51,
       0,
       "IMAGE"
-    ],
-    [
-      164,
-      91,
-      0,
-      61,
-      0,
-      "MODEL"
     ],
     [
       165,
@@ -7536,14 +7532,6 @@
       "MODEL"
     ],
     [
-      248,
-      60,
-      0,
-      166,
-      0,
-      "MODEL"
-    ],
-    [
       249,
       20,
       0,
@@ -7620,6 +7608,38 @@
       174,
       0,
       148,
+      0,
+      "MODEL"
+    ],
+    [
+      259,
+      179,
+      0,
+      166,
+      0,
+      "MODEL"
+    ],
+    [
+      260,
+      57,
+      0,
+      179,
+      0,
+      "MODEL"
+    ],
+    [
+      261,
+      180,
+      0,
+      66,
+      0,
+      "MODEL"
+    ],
+    [
+      262,
+      91,
+      0,
+      180,
       0,
       "MODEL"
     ]
@@ -7809,10 +7829,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.3253983321084469,
+      "scale": 0.7672722458503681,
       "offset": [
-        -1624.1214599944246,
-        189.76859174217105
+        399.43761043605724,
+        89.90582941024746
       ]
     },
     "frontendVersion": "1.45.19",
