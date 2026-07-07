@@ -1,8 +1,25 @@
 {
-  "_description": "アップロードされたワークフロー(wan22-vace-fun.json)専用プリセット。Wan2.2 T2V-A14B(Kijai/KJ形式fp8)にFun-VACEモジュール(bf16)をDiffusionModelLoaderKJのextra_state_dictで動的マージし、LightX2Vディスティルロラで高速化する構成。ComfyUI-KJNodes(このテンプレートにプリインストール済み)が必須",
+  "_description": "アップロードされたワークフロー(wan22-vace-fun.json)専用プリセット v3。Wan2.2 T2V-A14B(Kijai/KJ形式fp8)にFun-VACEモジュール(bf16)をDiffusionModelLoaderKJのextra_state_dictで動的マージし、LightX2Vディスティルロラ(8ステップ、CFG3.5→1の2段階)で高速化する構成。ComfyUI-KJNodes(このテンプレートにプリインストール済み)が必須。テキストエンコーダーは標準版(NSFW版ではない)を使用",
   "_workflow": {
-    "note": "アップロードされたワークフロー本体はユーザー環境に既にあるため、このプリセットにはワークフローJSON自体は含めていません(モデルのみ)",
+    "note": "アップロードされたワークフロー本体はユーザー環境に既にあるため、このプリセットにはワークフローJSON自体は含めていません(モデルのみ)。テキストエンコーダーをNSFW版から標準版umt5_xxl_fp8_e4m3fn_scaled.safetensorsに差し替えた修正版ワークフローは別途お渡し済み",
     "source_file": "wan22-vace-fun.json(アップロード済み)"
+  },
+  "_dependencies": {
+    "note": "モデル以外に、以下のpipパッケージが動作に必要です。download_all.pyの対象外(Pythonパッケージのため)なので、ターミナルで別途インストールしてください",
+    "packages": [
+      "timm --break-system-packages   # RMBGノード(参照画像の背景除去)に必須",
+      "sageattention --break-system-packages   # PathchSageAttentionKJノードの高速化に必須。無くても動作するが速度が落ちる"
+    ]
+  },
+  "_extend_with_loras": {
+    "note": "今後LoRAを追加する場合は、下のmodels配列に type:lora のエントリを増やすだけでOK。ワークフロー側は rgthree の Power Lora Loader に切り替えておくと、ノード追加・再配線なしで新しいLoRAを登録できる",
+    "example": {
+      "source": "civitai または hf",
+      "target": "モデルIDまたはリポジトリ名",
+      "file": "ファイル名.safetensors",
+      "rename_to": "Wan/わかりやすい名前.safetensors",
+      "type": "lora"
+    }
   },
   "models": [
     {
@@ -40,7 +57,7 @@
       "type": "diffusion"
     },
     {
-      "_comment": "LightX2V 4-stepディスティルLoRA(High/Low両方のブランチに同じファイルを適用)。models/loras/Wan/ 配下に配置",
+      "_comment": "LightX2V 4-stepディスティルLoRA(High/Low両方のブランチに同じファイルを適用、強度0.6)。models/loras/Wan/ 配下に配置",
       "source": "hf",
       "target": "Kijai/WanVideo_comfy",
       "file": "Lightx2v/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
@@ -48,12 +65,11 @@
       "type": "lora"
     },
     {
-      "_comment": "テキストエンコーダー(fp16版。このワークフローのCLIPLoaderウィジェット値がumt5_xxl_fp16.safetensorsのため合わせている。fp8_scaled版より約1.7倍容量が大きい点に注意)",
+      "_comment": "テキストエンコーダー(標準fp8_scaled版。NSFW版から差し替え済み。fp16版より約4GB軽く、ロード時間とVRAM/ディスク費用を削減)",
       "source": "hf",
       "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
-      "file": "split_files/text_encoders/umt5_xxl_fp16.safetensors",
-      "type": "clip",
-      "sha256": "7b8850f1961e1cf8a77cca4c964a358d303f490833c6c087d0cff4b2f99db2af"
+      "file": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "clip"
     },
     {
       "source": "hf",
