@@ -944,7 +944,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 57,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -2831,7 +2831,7 @@
         60
       ],
       "flags": {},
-      "order": 59,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -3572,64 +3572,6 @@
       ]
     },
     {
-      "id": 118,
-      "type": "LoadImage",
-      "pos": [
-        -1283.6267052200146,
-        313.741038050627
-      ],
-      "size": [
-        284,
-        314
-      ],
-      "flags": {},
-      "order": 39,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "IMAGE",
-          "nameLocked": null,
-          "removable": null,
-          "type": "IMAGE",
-          "pos": null,
-          "slot_index": null,
-          "links": [
-            169,
-            170
-          ]
-        },
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "MASK",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MASK",
-          "pos": null,
-          "slot_index": null,
-          "links": null
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.3.57",
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "images (1).jpg",
-        "image"
-      ]
-    },
-    {
       "id": 62,
       "type": "CLIPLoader",
       "pos": [
@@ -3641,7 +3583,7 @@
         106
       ],
       "flags": {},
-      "order": 40,
+      "order": 39,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -3976,68 +3918,6 @@
       "bgcolor": "#353"
     },
     {
-      "id": 117,
-      "type": "DiffusionModelLoaderKJ",
-      "pos": [
-        -401.1902083772986,
-        434.0173641642221
-      ],
-      "size": [
-        457.5235595703125,
-        178
-      ],
-      "flags": {},
-      "order": 60,
-      "mode": 0,
-      "inputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "extra_state_dict",
-          "nameLocked": null,
-          "removable": null,
-          "shape": 7,
-          "type": "STRING",
-          "pos": null,
-          "link": 166
-        }
-      ],
-      "outputs": [
-        {
-          "color_off": null,
-          "color_on": null,
-          "dir": null,
-          "label": null,
-          "locked": null,
-          "name": "MODEL",
-          "nameLocked": null,
-          "removable": null,
-          "type": "MODEL",
-          "pos": null,
-          "slot_index": null,
-          "links": [
-            167
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfyui-kjnodes",
-        "ver": "1.1.4",
-        "Node name for S&R": "DiffusionModelLoaderKJ"
-      },
-      "widgets_values": [
-        "wan2.2/Wan2_2-T2V-A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
-        "default",
-        "default",
-        false,
-        "disabled",
-        false
-      ]
-    },
-    {
       "id": 112,
       "type": "ImageResizeKJv2",
       "pos": [
@@ -4049,7 +3929,7 @@
         336.0000305175781
       ],
       "flags": {},
-      "order": 58,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -4271,7 +4151,7 @@
         58
       ],
       "flags": {},
-      "order": 41,
+      "order": 40,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5096,7 +4976,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 42,
+      "order": 41,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -5138,7 +5018,7 @@
       ],
       "size": [
         748.597900390625,
-        779.76171875
+        334
       ],
       "flags": {},
       "order": 86,
@@ -5302,85 +5182,6 @@
       ],
       "color": "#223",
       "bgcolor": "#335"
-    },
-    {
-      "id": 179,
-      "type": "Power Lora Loader (rgthree)",
-      "pos": [
-        104.42196512859272,
-        790.1000523364773
-      ],
-      "size": [
-        340.519921875,
-        190
-      ],
-      "flags": {},
-      "order": 76,
-      "mode": 0,
-      "inputs": [
-        {
-          "dir": 3,
-          "name": "model",
-          "type": "MODEL",
-          "link": 260
-        },
-        {
-          "dir": 3,
-          "name": "clip",
-          "type": "CLIP",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "dir": 4,
-          "name": "MODEL",
-          "shape": 3,
-          "type": "MODEL",
-          "links": [
-            259
-          ]
-        },
-        {
-          "dir": 4,
-          "name": "CLIP",
-          "shape": 3,
-          "type": "CLIP",
-          "links": null
-        }
-      ],
-      "properties": {
-        "cnr_id": "rgthree-comfy",
-        "ver": "1.0.2606200020",
-        "Show Strengths": "Single Strength",
-        "Match": ""
-      },
-      "widgets_values": [
-        {},
-        {
-          "type": "PowerLoraLoaderHeaderWidget"
-        },
-        {
-          "on": true,
-          "lora": "Wan/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
-          "strength": 1,
-          "strengthTwo": null
-        },
-        {
-          "on": true,
-          "lora": "nude.safetensors",
-          "strength": 1,
-          "strengthTwo": null
-        },
-        {
-          "on": true,
-          "lora": "bouncing_boobs.safetensors",
-          "strength": 1,
-          "strengthTwo": null
-        },
-        {},
-        ""
-      ]
     },
     {
       "id": 57,
@@ -5572,6 +5373,64 @@
       "bgcolor": "#335"
     },
     {
+      "id": 118,
+      "type": "LoadImage",
+      "pos": [
+        -1283.6267052200146,
+        313.741038050627
+      ],
+      "size": [
+        284,
+        314
+      ],
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "IMAGE",
+          "nameLocked": null,
+          "removable": null,
+          "type": "IMAGE",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            169,
+            170
+          ]
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "MASK",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MASK",
+          "pos": null,
+          "slot_index": null,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.57",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "images (1).jpg",
+        "image"
+      ]
+    },
+    {
       "id": 116,
       "type": "DiffusionModelSelector",
       "pos": [
@@ -5610,7 +5469,148 @@
         "Node name for S&R": "DiffusionModelSelector"
       },
       "widgets_values": [
-        "wan/Wan2_2_Fun_VACE_module_A14B_HIGH_bf16.safetensors"
+        "wan2.2/Wan2_2-T2V-A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors"
+      ]
+    },
+    {
+      "id": 117,
+      "type": "DiffusionModelLoaderKJ",
+      "pos": [
+        -401.1902083772986,
+        434.0173641642221
+      ],
+      "size": [
+        457.5235595703125,
+        178
+      ],
+      "flags": {},
+      "order": 60,
+      "mode": 0,
+      "inputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "extra_state_dict",
+          "nameLocked": null,
+          "removable": null,
+          "shape": 7,
+          "type": "STRING",
+          "pos": null,
+          "link": 166
+        }
+      ],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "MODEL",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MODEL",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            167
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "1.1.4",
+        "Node name for S&R": "DiffusionModelLoaderKJ"
+      },
+      "widgets_values": [
+        "wan2.2/Wan2_2-T2V-A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+        "default",
+        "default",
+        false,
+        "disabled",
+        false
+      ]
+    },
+    {
+      "id": 179,
+      "type": "Power Lora Loader (rgthree)",
+      "pos": [
+        104.42196512859272,
+        790.1000523364773
+      ],
+      "size": [
+        340.519921875,
+        190
+      ],
+      "flags": {},
+      "order": 76,
+      "mode": 0,
+      "inputs": [
+        {
+          "dir": 3,
+          "name": "model",
+          "type": "MODEL",
+          "link": 260
+        },
+        {
+          "dir": 3,
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "dir": 4,
+          "name": "MODEL",
+          "shape": 3,
+          "type": "MODEL",
+          "links": [
+            259
+          ]
+        },
+        {
+          "dir": 4,
+          "name": "CLIP",
+          "shape": 3,
+          "type": "CLIP",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "1.0.2606200020",
+        "Show Strengths": "Single Strength",
+        "Match": ""
+      },
+      "widgets_values": [
+        {},
+        {
+          "type": "PowerLoraLoaderHeaderWidget"
+        },
+        {
+          "on": true,
+          "lora": "Wan/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
+          "strength": 1,
+          "strengthTwo": null
+        },
+        {
+          "on": true,
+          "lora": "nude.safetensors",
+          "strength": 1,
+          "strengthTwo": null
+        },
+        {
+          "on": true,
+          "lora": "bouncing_boobs.safetensors",
+          "strength": 1,
+          "strengthTwo": null
+        },
+        {},
+        ""
       ]
     }
   ],
@@ -6593,10 +6593,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.4764156980399858,
+      "scale": 0.2222514391834259,
       "offset": [
-        -3815.3401619786787,
-        -345.2065167030786
+        -1147.1338164059161,
+        602.715810468628
       ]
     },
     "frontendVersion": "1.45.19",
