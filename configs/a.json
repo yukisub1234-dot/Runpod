@@ -1,0 +1,65 @@
+{
+  "_description": "wan22-i2v-clean-optimized.json 専用プリセット(正当なI2Vユースケース向け・クリーンアップ&コスト最適化版)。このワークフローは実際にはHIGH-noiseモデル1本のみを使用し(LightX2V CFGディスティルLoRAによる2段階サンプリングで、LOW-noiseモデルの追加ロードは不要)、Fun-VACEモジュールをbf16版からfp8_scaled版に変更してダウンロード量とVRAMを削減しています。NSFW版テキストエンコーダー・NSFW系LoRAは同梱していません。",
+  "_changes_from_original": [
+    "LOWノイズモデル(T2V-A14B-LOW)を削除: このワークフローはLightX2V CFGディスティルLoRAで単一モデルを2段階サンプリングする構成のため、LOW-noiseモデル(約15GB)は不要と判断",
+    "Fun-VACEモジュールをbf16(約6GB)からfp8_e4m3fn_scaled(3.05GB)に変更: サイズ約半減、VRAM消費も削減。extra_state_dictでのマージ精度への影響は軽微",
+    "テキストエンコーダーをNSFW版からComfy-Org公式の標準fp8_scaled版に統一(ワークフロー側のCLIPLoaderウィジェットとファイル名を完全一致させ、モデル未検出エラーを防止)",
+    "NSFW系LoRA(nude.safetensors, bouncing_boobs.safetensors)は同梱・記載しない"
+  ],
+  "_workflow": {
+    "note": "対応ワークフロー: wan22-i2v-clean-optimized.json(このプリセットと同時に提供)。プロンプト・LoRA構成をクリーンアップし、DiffusionModelSelectorのextra_state_dict参照をFun-VACEモジュール(fp8版)に修正済み",
+    "source_file": "wan22-vace-fun-v2.json をベースに修正"
+  },
+  "_dependencies": {
+    "note": "以下は download_all.py の対象外(Pythonパッケージ / 自動DLされる補助モデルのため)。ターミナルで別途対応してください",
+    "packages": [
+      "timm --break-system-packages   # RMBGノード(参照画像の背景除去)に必須",
+      "sageattention --break-system-packages   # PathchSageAttentionKJノードの高速化に必須(無くても動作するが速度が落ちる)"
+    ],
+    "auto_downloaded_models": [
+      "RMBG-2.0: ComfyUI-RMBGノードの初回実行時にHugging Faceから自動取得されるため、本プリセットには含めていません"
+    ]
+  },
+  "models": [
+    {
+      "_comment": "T2V-A14B HIGH noise(Kijai/KJ形式fp8)。このワークフローで使用する唯一の拡散モデル本体。models/diffusion_models/wan2.2/ 配下に配置",
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy_fp8_scaled",
+      "file": "T2V/Wan2_2-T2V-A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "rename_to": "wan2.2/Wan2_2-T2V-A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "type": "diffusion",
+      "sha256": "15384a1da9b5aa463464ba50a596b84f6c0929bfb72ec47df6bb48cb2e0b6f0c"
+    },
+    {
+      "_comment": "Fun-VACEモジュール HIGH(fp8_e4m3fn_scaled版。bf16版の約半分のサイズ)。DiffusionModelLoaderKJのextra_state_dictとして動的マージされ、ベースモデルにVACE(参照画像による動画生成)機能を付与する。models/diffusion_models/wan/ 配下に配置",
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy_fp8_scaled",
+      "file": "VACE/Wan2_2_Fun_VACE_module_A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "rename_to": "wan/Wan2_2_Fun_VACE_module_A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "type": "diffusion",
+      "sha256": "5755fe094e23988421d780df6acb208c08d8e702870cf8da805ed924e7c27f18"
+    },
+    {
+      "_comment": "LightX2V 8-stepディスティルLoRA(CFG 3.5→1の2段階サンプリングを実現し、単一モデルでの高速化を可能にする)。models/loras/Wan/ 配下に配置",
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy",
+      "file": "Lightx2v/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
+      "rename_to": "Wan/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
+      "type": "lora"
+    },
+    {
+      "_comment": "テキストエンコーダー(標準fp8_scaled版)。models/text_encoders/ 配下に配置",
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "clip"
+    },
+    {
+      "_comment": "VAE",
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.1_ComfyUI_repackaged",
+      "file": "split_files/vae/wan_2.1_vae.safetensors",
+      "type": "vae"
+    }
+  ]
+}
