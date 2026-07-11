@@ -1,0 +1,45 @@
+{
+  "_description": "アップロードされたwan22-vace-fun.jsonワークフロー専用の最適化プリセット (KJ形式T2V-A14B + Fun-VACEモジュール)",
+  "models": [
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/diffusion_models/wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors",
+      "type": "diffusion",
+      "rename_to": "wan2.2/wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors",
+      "sha256": ""
+    },
+    {
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy",
+      "file": "Wan2.2_VACE_A14B_alpha_extra_state_dict.safetensors",
+      "type": "diffusion",
+      "rename_to": "wan/Wan2.2_VACE_A14B_alpha_extra_state_dict.safetensors",
+      "sha256": ""
+    },
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/text_encoders/umt5_xxl_fp16.safetensors",
+      "type": "clip",
+      "rename_to": "Wan/umt5_xxl_fp16.safetensors",
+      "sha256": ""
+    },
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "file": "split_files/vae": "wan2.2_vae.safetensors",
+      "type": "vae",
+      "rename_to": "wan2.2/wan2.2_vae.safetensors",
+      "sha256": ""
+    },
+    {
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy",
+      "file": "wan2.2_lora_LightX2V_4step_T2V.safetensors",
+      "type": "lora",
+      "rename_to": "wan2.2/wan2.2_lora_LightX2V_4step_T2V.safetensors",
+      "sha256": ""
+    }
+  ]
+}
