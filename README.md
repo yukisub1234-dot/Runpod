@@ -10,6 +10,7 @@ echo "CIVITAI_TOKEN: ${CIVITAI_TOKEN:+設定済み}"
 echo "HF_TOKEN: ${HF_TOKEN:+設定済み}"
 
 # 実行
+python3 -m pip install sageattention --break-system-packages --no-build-isolation
 python3 download_all.py --config wan22-lightweight-fast --workers 2
 python3 download_all.py --config my-workflows.json --workers 2
 ```
