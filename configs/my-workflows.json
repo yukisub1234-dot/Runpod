@@ -19,14 +19,14 @@
       "_comment": "以下はサンプル。実際のユーザー名・リポジトリ名・ファイル名に書き換えてください",
       "source": "url",
       "url": "https://raw.githubusercontent.com/yukisub1234-dot/Runpod_setup/main/workflows/wan22-vace-fun-v2.json",
-      "file": "wan22-vace-fun.json",
+      "file": "wan22-vace-fun-v2.json",
       "type": "workflow"
     },
     {
       "_comment": "以下はサンプル。実際のユーザー名・リポジトリ名・ファイル名に書き換えてください",
       "source": "url",
       "url": "https://raw.githubusercontent.com/yukisub1234-dot/Runpod_setup/main/workflows/wan2.2_optimized_workflow.json",
-      "file": "wan22-vace-fun.json",
+      "file": "wan2.2_optimized_workflow.json",
       "type": "workflow"
     }
   ]
