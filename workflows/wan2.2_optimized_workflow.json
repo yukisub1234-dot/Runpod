@@ -1,0 +1,105 @@
+{
+    "1": {
+        "inputs": {
+            "image": "input_person_image.png",
+            "upload": "image"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+            "title": "1. Load Source Image (Person)"
+        }
+    },
+    "2": {
+        "inputs": {
+            "width": 832,
+            "height": 480,
+            "interpolation": "bicubic",
+            "keep_proportion": "Keep Aspect Ratio (Scale to Fit)",
+            "image": [
+                "1",
+                0
+            ]
+        },
+        "class_type": "ImageResize+",
+        "_meta": {
+            "title": "2. Pre-process Image (Wan2.2 Resolution Match)"
+        }
+    },
+    "3": {
+        "inputs": {
+            "model_name": "wan2.2_i2v_14b_fp8.safetensors",
+            "precision": "fp8_e4m3fn",
+            "device": "cuda"
+        },
+        "class_type": "WanVideoImageToVideoModelLoader",
+        "_meta": {
+            "title": "3. Wan2.2 I2V Model Loader (FP8 Co-Optimization)"
+        }
+    },
+    "4": {
+        "inputs": {
+            "text": "hair blowing softly in the wind, professional lighting, photorealistic, high quality, static camera --neg deformed, blurry, face distortion, sudden camera movement",
+            "clip": [
+                "3",
+                1
+            ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+            "title": "4. Motion Prompt (Action Description Only)"
+        }
+    },
+    "5": {
+        "inputs": {
+            "seed": 42,
+            "steps": 35,
+            "cfg": 5.5,
+            "sampler_name": "uni_pc",
+            "scheduler": "simple",
+            "motion_strength": 0.85,
+            "model": [
+                "3",
+                0
+            ],
+            "positive": [
+                "4",
+                0
+            ],
+            "image": [
+                "2",
+                0
+            ]
+        },
+        "class_type": "WanVideoSampler",
+        "_meta": {
+            "title": "5. WanVideo Sampler (High Precision & Low VRAM)"
+        }
+    },
+    "6": {
+        "inputs": {
+            "vae_name": "wan2.2_vae_fp8.safetensors",
+            "tile_size": 256,
+            "samples": [
+                "5",
+                0
+            ]
+        },
+        "class_type": "WanVideoVAEDecode",
+        "_meta": {
+            "title": "6. Tiled VAE Decode (OOM Prevention)"
+        }
+    },
+    "7": {
+        "inputs": {
+            "filename_prefix": "Wan2.2_I2V_CostEffective",
+            "fps": 16,
+            "images": [
+                "6",
+                0
+            ]
+        },
+        "class_type": "SaveVideo",
+        "_meta": {
+            "title": "7. Save High-Quality Output Video"
+        }
+    }
