@@ -3617,7 +3617,7 @@
         ]
       },
       "widgets_values": [
-        "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
+        "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
         "wan",
         "default"
       ]
@@ -3676,7 +3676,7 @@
         "Node name for S&R": "CLIPTextEncode"
       },
       "widgets_values": [
-        "Take off your clothes and get naked,cinematic push-in,photorealistic details,high contrast, moody atmosphere,flawless frame-to-frame transition\n"
+        "A person turns naturally toward the camera and smiles softly, cinematic push-in, photorealistic details, high contrast, moody atmosphere, flawless frame-to-frame transition\n"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -3794,7 +3794,7 @@
         "Node name for S&R": "CLIPTextEncode"
       },
       "widgets_values": [
-        "Take off your clothes and get naked,cinematic push-in,photorealistic details,high contrast, moody atmosphere,flawless frame-to-frame transition\n"
+        "A person turns naturally toward the camera and smiles softly, cinematic push-in, photorealistic details, high contrast, moody atmosphere, flawless frame-to-frame transition\n"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -3912,7 +3912,7 @@
         "Node name for S&R": "CLIPTextEncode"
       },
       "widgets_values": [
-        "Make her breasts jiggle,cinematic push-in,photorealistic details,high contrast, moody atmosphere,flawless frame-to-frame transition\n"
+        "A person turns naturally toward the camera and smiles softly, cinematic push-in, photorealistic details, high contrast, moody atmosphere, flawless frame-to-frame transition\n"
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -5469,7 +5469,7 @@
         "Node name for S&R": "DiffusionModelSelector"
       },
       "widgets_values": [
-        "wan2.2/Wan2_2-T2V-A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors"
+        "wan/Wan2_2_Fun_VACE_module_A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors"
       ]
     },
     {
@@ -5594,18 +5594,6 @@
         {
           "on": true,
           "lora": "Wan/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank32_bf16.safetensors",
-          "strength": 1,
-          "strengthTwo": null
-        },
-        {
-          "on": true,
-          "lora": "nude.safetensors",
-          "strength": 1,
-          "strengthTwo": null
-        },
-        {
-          "on": true,
-          "lora": "bouncing_boobs.safetensors",
           "strength": 1,
           "strengthTwo": null
         },
