@@ -28,7 +28,7 @@
     {
       "source": "hf",
       "target": "Kijai/WanVideo_comfy",
-      "file": "split_files/loras/Wan21_CausVid_14B_T2V_lora_rank32.safetensors",
+      "file": "resolve/main/Wan21_CausVid_14B_T2V_lora_rank32.safetensors",
       "type": "lora",
       "rename_to": "Wan21_CausVid_14B_T2V_lora_rank32.safetensors",
       "sha256": ""
