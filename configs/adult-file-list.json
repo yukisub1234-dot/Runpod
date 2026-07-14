@@ -91,6 +91,14 @@
         "sha256": "624B7EEEF91B04CAE4E95ABCAA0EA84018396B1CB5E1F4C42BC812967069FAC9"
     },
     {
+        "source": "civitai",
+        "target": "2715206", 
+        "file": "Asian.safetensors",
+        "type": "lora",
+        "rename_to": "asian_girl.safetensors",
+        "sha256": "4E954DDDB15D7C169818D8679A6275BB9D130315C3BA96E5C676D5651EE7883F"
+    },
+    {
         "source": "hf",
         "target": "NSFW-API/NSFW-Wan-UMT5-XXL",
         "file": "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
