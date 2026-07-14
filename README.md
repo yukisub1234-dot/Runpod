@@ -11,6 +11,8 @@ echo "HF_TOKEN: ${HF_TOKEN:+設定済み}"
 
 # 実行
 python3 -m pip install sageattention --break-system-packages --no-build-isolation
+echo "--use-sage-attention" >> /workspace/runpod-slim/comfyui_args.txt
+echo "--fast" >> /workspace/runpod-slim/comfyui_args.txt
 python3 download_all.py --config wan22-lightweight-fast --workers 2
 python3 download_all.py --config my-workflows.json --workers 2
 ```
