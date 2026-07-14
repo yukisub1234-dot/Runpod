@@ -83,6 +83,14 @@
         "sha256": "F28F656A994BB93366C97018BCB0CF4EF0C5B125AF463666C74C61D755024B4D"
     },
     {
+        "source": "civitai",
+        "target": "142611", 
+        "file": "Skirtlift.safetensors",
+        "type": "lora",
+        "rename_to": "skirt_lift.safetensors",
+        "sha256": "624B7EEEF91B04CAE4E95ABCAA0EA84018396B1CB5E1F4C42BC812967069FAC9"
+    },
+    {
         "source": "hf",
         "target": "NSFW-API/NSFW-Wan-UMT5-XXL",
         "file": "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
