@@ -33,7 +33,7 @@
       "source": "hf",
       "target": "Comfy-Org/Wan_2.1_ComfyUI_repackaged",
       "file": "split_files/clip_vision/clip_vision_h.safetensors",
-      "path": "models/clip_visions",
+      "type": "clip",
       "rename_to": "clip_vision_h.safetensors"
     },
     {
