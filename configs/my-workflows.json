@@ -18,15 +18,15 @@
     {
       "_comment": "以下はサンプル。実際のユーザー名・リポジトリ名・ファイル名に書き換えてください",
       "source": "url",
-      "url": "https://raw.githubusercontent.com/yukisub1234-dot/Runpod_setup/main/workflows/wan22-vace-fun-v2.json",
+      "url": "https://raw.githubusercontent.com/yukisub1234-dot/Runpod_setup/main/workflows/wan21_vace_14B_iv2v.json",
       "file": "wan21_vace_14B_iv2v.json",
       "type": "workflow"
     },
     {
       "_comment": "以下はサンプル。実際のユーザー名・リポジトリ名・ファイル名に書き換えてください",
       "source": "url",
-      "url": "https://raw.githubusercontent.com/yukisub1234-dot/Runpod_setup/main/workflows/wan2.2_optimized_workflow.json",
-      "file": "wan2.2_optimized_workflow.json",
+      "url": "https://raw.githubusercontent.com/yukisub1234-dot/Runpod_setup/main/workflows/wan22-animate.json",
+      "file": "wan22-animate.json",
       "type": "workflow"
     }
   ]
