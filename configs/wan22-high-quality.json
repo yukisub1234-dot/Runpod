@@ -40,8 +40,8 @@
     },
     {
       "source": "url",
-      "url": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/video_wan2_2_14B_i2v.json",
-      "file": "wan22-high-quality.json",
+      "url": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/wan22_14b_t2v.json",
+      "file": "wan22_14b_t2v.json",
       "type": "workflow"
     }
   ]
