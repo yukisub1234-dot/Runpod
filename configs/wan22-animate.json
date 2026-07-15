@@ -24,6 +24,13 @@
     },
     {
       "source": "hf",
+      "target": "Kijai/WanVideo_comfy",
+      "file": "LoRAs/Wan22_relight/WanAnimate_relight_lora_fp16.safetensors",
+      "type": "lora",
+      "rename_to": "WanAnimate_relight_lora_fp16.safetensors"
+    },
+    {
+      "source": "hf",
       "target": "Comfy-Org/Wan_2.1_ComfyUI_repackaged",
       "file": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
       "type": "clip",
