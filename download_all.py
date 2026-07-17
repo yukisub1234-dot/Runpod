@@ -46,6 +46,7 @@ DIR_MAPPING = {
     "checkpoint": f"{COMFYUI_ROOT}/models/checkpoints",
     "lora": f"{COMFYUI_ROOT}/models/loras",
     "clip": f"{COMFYUI_ROOT}/models/text_encoders",
+    "clip_vision": f"{COMFYUI_ROOT}/models/clip_vision", 
     "vae": f"{COMFYUI_ROOT}/models/vae",
     "upscale": f"{COMFYUI_ROOT}/models/upscale_models",
     "controlnet": f"{COMFYUI_ROOT}/models/controlnet",
