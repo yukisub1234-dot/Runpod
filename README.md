@@ -35,6 +35,12 @@ python3 download_all.py --add \
   --type diffusion
 ```
 
+ComfyUI再起動コマンド
+```bash
+cd /workspace/runpod-slim/ComfyUI
+source .venv-cu128/bin/activate
+python main.py --listen 0.0.0.0 --port 8188 --enable-cors-header
+```
 # ComfyUI Model Downloader
 
 RunPod公式テンプレート **「ComfyUI - CUDA 13」**(`github.com/runpod-workers/comfyui-base`)向けに、Civitai / Hugging Face からモデル(チェックポイント・LoRA・VAE・テキストエンコーダーなど)を目的別プリセットで一括ダウンロードするスクリプトです。
