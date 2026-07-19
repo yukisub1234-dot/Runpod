@@ -17,7 +17,7 @@
     },
     {
       "source": "hf",
-      "target": "depthanything/Depth-Anything-V2-Base",
+      "target": "depth-anything/Depth-Anything-V2-Base",
       "file": "depth_anything_v2_vitb.pth",
       "type": "controlnet",
       "rename_to": "controlnet_aux/depth_anything/depth_anything_v2_vitb.pth"
