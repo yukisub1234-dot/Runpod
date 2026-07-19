@@ -101,9 +101,10 @@
         }
       ],
       "properties": {
-        "aux_id": "Kosinkadink/ComfyUI-VideoHelperSuite",
+        "cnr_id": "comfyui-videohelpersuite",
         "ver": "4ee72c065db22c9d96c2427954dc69e7b908444b",
-        "Node name for S&R": "VHS_LoadVideo"
+        "Node name for S&R": "VHS_LoadVideo",
+        "aux_id": "Kosinkadink/ComfyUI-VideoHelperSuite"
       },
       "widgets_values": {
         "video": "名称未設定のデザイン_compressed.mp4",
@@ -114,7 +115,6 @@
         "skip_first_frames": 0,
         "select_every_nth": 1,
         "format": "AnimateDiff",
-        "choose video to upload": "image",
         "videopreview": {
           "hidden": false,
           "paused": false,
@@ -264,24 +264,24 @@
       ]
     },
     {
-      "id": 12,
+      "id": 13,
       "type": "SaveImage",
       "pos": [
-        1407.0583577718535,
-        697.1468111871447
+        1380.01043831934,
+        192.96145717744017
       ],
       "size": [
         313.47265625,
         58
       ],
       "flags": {},
-      "order": 7,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 9
+          "link": 10
         }
       ],
       "outputs": [
@@ -296,7 +296,7 @@
         "ver": "0.26.2"
       },
       "widgets_values": [
-        "ComfyUI"
+        "pre_dwpose/frame"
       ]
     },
     {
@@ -332,28 +332,28 @@
         "ver": "0.26.2"
       },
       "widgets_values": [
-        "ComfyUI"
+        "pre_depth/frame"
       ]
     },
     {
-      "id": 13,
+      "id": 12,
       "type": "SaveImage",
       "pos": [
-        1380.01043831934,
-        192.96145717744017
+        1407.0583577718535,
+        697.1468111871447
       ],
       "size": [
         313.47265625,
         58
       ],
       "flags": {},
-      "order": 5,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 10
+          "link": 9
         }
       ],
       "outputs": [
@@ -368,7 +368,7 @@
         "ver": "0.26.2"
       },
       "widgets_values": [
-        "ComfyUI"
+        "pre_canny/frame"
       ]
     }
   ],
@@ -434,10 +434,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.620921323059155,
+      "scale": 0.7937395588254095,
       "offset": [
-        150.97531742223782,
-        133.95610870146623
+        -134.05729080426275,
+        38.39962763800164
       ]
     },
     "frontendVersion": "1.45.19",
