@@ -19,17 +19,17 @@
     },
     {
       "source": "hf",
-      "target": "Kijai/Wan2.1-ControlNet-safetensors", 
-      "file": "Wan2.1-Fun-1.3B-Control.safetensors",
+      "target": "alibaba-pai/Wan2.1-Fun-1.3B-Control", 
+      "file": "diffusion_pytorch_model.safetensors",
       "type": "controlnet",
       "rename_to": "controlnet/Wan2.1-Fun-1.3B-Control.safetensors"
     },
     {
       "source": "hf",
-      "target": "Kijai/Wan2.1-ControlNet-safetensors",
-      "file": "Wan2.1-Fun-1.3B-Depth-Control.safetensors",
+      "target": "alibaba-pai/Wan2.1-Fun-14B-Control",
+      "file": "diffusion_pytorch_model.safetensors",
       "type": "controlnet",
-      "rename_to": "controlnet/Wan2.1-Fun-1.3B-Depth-Control.safetensors"
+      "rename_to": "controlnet/Wan2.1-Fun-14B-Control.safetensors"
     },
     {
       "source": "hf",
