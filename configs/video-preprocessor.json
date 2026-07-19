@@ -1,0 +1,32 @@
+{
+  "_description": "元動画からマスク、DWPose、Depth（深度マップ）動画を生成・抽出するための前処理用セット",
+  "models": [
+    {
+      "source": "hf",
+      "target": "yonigozlan/dwpose",
+      "file": "dw-ll_ucoco_384.pth",
+      "type": "controlnet",
+      "rename_to": "controlnet_preprocessors/dwpose/dw-ll_ucoco_384.pth"
+    },
+    {
+      "source": "hf",
+      "target": "yonigozlan/dwpose",
+      "file": "yolox_l.pth",
+      "type": "controlnet",
+      "rename_to": "controlnet_preprocessors/dwpose/yolox_l.pth"
+    },
+    {
+      "source": "hf",
+      "target": "LiheYoung/depth-anything-large-hf",
+      "file": "diffusion_pytorch_model.safetensors",
+      "type": "controlnet",
+      "rename_to": "controlnet_preprocessors/depth_anything/depth_anything_vitl14.pth"
+    },
+    {
+      "source": "url",
+      "url": "https://raw.githubusercontent.com/yukisub1234-dot/Runpod_setup/main/workflows/video_preprocessor_workflow.json",
+      "file": "video_preprocessor_workflow.json",
+      "type": "workflow"
+    }
+  ]
+}
