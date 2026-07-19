@@ -1,32 +1,26 @@
 {
-  "_description": "元動画からマスク、DWPose、Depth（深度マップ）動画を生成・抽出するための前処理用セット",
+  "_description": "ControlNet Preprocessors for Wan2.1/2.2 (DWPose, Depth, Canny)",
   "models": [
     {
       "source": "hf",
-      "target": "yonigozlan/dwpose",
-      "file": "dw-ll_ucoco_384.pth",
+      "target": "yzd-v/DWPose",
+      "file": "dw-ll_ucoco_384.onnx",
       "type": "controlnet",
-      "rename_to": "controlnet_preprocessors/dwpose/dw-ll_ucoco_384.pth"
+      "rename_to": "controlnet_aux/dwpose/dw-ll_ucoco_384.onnx"
     },
     {
       "source": "hf",
-      "target": "yonigozlan/dwpose",
-      "file": "yolox_l.pth",
+      "target": "yzd-v/DWPose",
+      "file": "yolox_l.onnx",
       "type": "controlnet",
-      "rename_to": "controlnet_preprocessors/dwpose/yolox_l.pth"
+      "rename_to": "controlnet_aux/dwpose/yolox_l.onnx"
     },
     {
       "source": "hf",
-      "target": "LiheYoung/depth-anything-large-hf",
-      "file": "diffusion_pytorch_model.safetensors",
+      "target": "depthanything/Depth-Anything-V2-Base",
+      "file": "depth_anything_v2_vitb.pth",
       "type": "controlnet",
-      "rename_to": "controlnet_preprocessors/depth_anything/depth_anything_vitl14.pth"
-    },
-    {
-      "source": "url",
-      "url": "https://raw.githubusercontent.com/yukisub1234-dot/Runpod_setup/main/workflows/video_preprocessor_workflow.json",
-      "file": "video_preprocessor_workflow.json",
-      "type": "workflow"
+      "rename_to": "controlnet_aux/depth_anything/depth_anything_v2_vitb.pth"
     }
   ]
 }
