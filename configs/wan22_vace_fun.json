@@ -1,0 +1,61 @@
+{
+  "_description": "アップロードされたvideo_wan_vace_14B_v2v.jsonワークフロー専用の最適化プリセット (14B VACEモデル + 高速化FP8テキストエンコーダー)",
+  "models": [
+    {
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy",
+      "file": "VACE/Wan2_2_Fun_VACE_module_A14B_HIGH_bf16.safetensors",
+      "type": "diffusion",
+      "rename_to": "Wan2_2_Fun_VACE_module_A14B_HIGH_bf16.safetensors",
+      "sha256": "5ab3baf65fa188ee1af9ce1207a8999af300911fb355d1a88601002e036a6d10"
+    },
+    {
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy",
+      "file": "VACE/Wan2_2_Fun_VACE_module_A14B_LOW_bf16.safetensors",
+      "type": "diffusion",
+      "rename_to": "Wan2_2_Fun_VACE_module_A14B_LOW_bf16.safetensors",
+      "sha256": "e5d5688d43bb66dc041592413a36a2e3f1675df2afecdf68061520ac530459d0"
+    },
+    {
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy_fp8_scaled",
+      "file": "T2V/Wan2_2-T2V-A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "type": "diffusion",
+      "rename_to": "Wan2_2-T2V-A14B_HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "sha256": "15384a1da9b5aa463464ba50a596b84f6c0929bfb72ec47df6bb48cb2e0b6f0c"
+    },
+    {
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy_fp8_scaled",
+      "file": "T2V/Wan2_2-T2V-A14B-LOW_fp8_e4m3fn_scaled_KJ.safetensors",
+      "type": "diffusion",
+      "rename_to": "Wan2_2-T2V-A14B-LOW_fp8_e4m3fn_scaled_KJ.safetensors",
+      "sha256": "ce74fff05e37f995a0ae845f53510e43f98b838f4e75d846eb3e2929e7f555cc"
+    },
+    {
+      "source": "hf",
+      "target": "Comfy-Org/Wan_2.1_ComfyUI_Repackaged",
+      "file": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "clip",
+      "rename_to": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "sha256": ""
+    },
+    {
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy",
+      "file": "Wan2_1_VAE_bf16.safetensors",
+      "type": "vae",
+      "rename_to": "Wan2_1_VAE_bf16.safetensors",
+      "sha256": "1ab9a32cc2c740f6e39d80d367ce5dcc28db8c71b79b28670546b8973e9d75f9"
+    },
+    {
+      "source": "hf",
+      "target": "Kijai/WanVideo_comfy",
+      "file": "Lightx2v/lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank64_bf16.safetensors",
+      "type": "lora",
+      "rename_to": "lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank64_bf16.safetensors",
+      "sha256": "37d49218544b9e0bfb8e831d1399f451fbc5068aff6474f42a90c928363c3573"
+    }
+  ]
+}
