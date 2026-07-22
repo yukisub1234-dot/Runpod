@@ -4,7 +4,7 @@
     {
       "source": "hf",
       "target": "Kijai/WanVideo_comfy",
-      "file": "VACE/Wan2_2_Fun_VACE_module_A14B_HIGH_bf16.safetensors",
+      "file": "Fun/VACE/Wan2_2_Fun_VACE_module_A14B_HIGH_bf16.safetensors",
       "type": "diffusion",
       "rename_to": "Wan2_2_Fun_VACE_module_A14B_HIGH_bf16.safetensors",
       "sha256": "5ab3baf65fa188ee1af9ce1207a8999af300911fb355d1a88601002e036a6d10"
@@ -12,7 +12,7 @@
     {
       "source": "hf",
       "target": "Kijai/WanVideo_comfy",
-      "file": "VACE/Wan2_2_Fun_VACE_module_A14B_LOW_bf16.safetensors",
+      "file": "Fun/VACE/Wan2_2_Fun_VACE_module_A14B_LOW_bf16.safetensors",
       "type": "diffusion",
       "rename_to": "Wan2_2_Fun_VACE_module_A14B_LOW_bf16.safetensors",
       "sha256": "e5d5688d43bb66dc041592413a36a2e3f1675df2afecdf68061520ac530459d0"
