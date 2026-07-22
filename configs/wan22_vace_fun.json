@@ -35,11 +35,11 @@
     },
     {
       "source": "hf",
-      "target": "Comfy-Org/Wan_2.1_ComfyUI_Repackaged",
-      "file": "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "target": "NSFW-API/NSFW-Wan-UMT5-XXL",
+      "file": "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
       "type": "clip",
-      "rename_to": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
-      "sha256": ""
+      "rename_to": "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
+      "sha256": "a484bb9739a8d4020ca6f072b5b7329cf13e352b06985497c1f7f81ea98a45c5"
     },
     {
       "source": "hf",
