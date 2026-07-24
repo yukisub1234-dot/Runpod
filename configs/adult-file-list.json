@@ -68,6 +68,14 @@
     },
     {
         "source": "civitai",
+        "target": "719737", 
+        "file": "flashing_tits_lora.safetensors",
+        "type": "lora",
+        "rename_to": "flashing_tits.safetensors",
+        "sha256": "A03B00A165BD2B97225D16C7200F4AF5656B8D1AD357EF14E53513EC16E95579"
+    },
+    {
+        "source": "civitai",
         "target": "2012120", 
         "file": "pussy_lora.safetensors",
         "type": "lora",
