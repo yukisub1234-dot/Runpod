@@ -36,10 +36,10 @@
     {
       "source": "hf",
       "target": "NSFW-API/NSFW-Wan-UMT5-XXL",
-      "file": "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
+      "file": "nsfw_wan_umt5-xxl_bf16.safetensors",
       "type": "clip",
-      "rename_to": "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
-      "sha256": "a484bb9739a8d4020ca6f072b5b7329cf13e352b06985497c1f7f81ea98a45c5"
+      "rename_to": "nsfw_wan_umt5-xxl_bf16.safetensors",
+      "sha256": "daa3cdf38e2dc7cd776548e59d7956db3a3bc95fecf95f95e6ca2722419eeb66"
     },
     {
       "source": "hf",
